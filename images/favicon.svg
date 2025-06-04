@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- NaviBatch Favicon - 简洁的N字母 + 导航箭头 -->
+  <rect width="32" height="32" rx="6" fill="#00A3FF"/>
+  
+  <!-- 字母 N -->
+  <path d="M8 8 L8 24 L10 24 L10 12 L18 24 L20 24 L20 8 L18 8 L18 20 L10 8 Z" fill="white"/>
+  
+  <!-- 导航箭头 -->
+  <path d="M24 12 L28 16 L24 20" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M22 16 L27 16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,215 @@
+/* 性能优化和CLS修复 */
+
+/* 1. 修复累积布局偏移 (CLS) */
+.hero-image-container {
+    /* 预设容器尺寸防止布局偏移 */
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 3/2; /* 现代浏览器支持 */
+    min-height: 400px; /* 备用高度 */
+    position: relative;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.phone-mockup {
+    /* 固定尺寸防止布局偏移 */
+    width: 300px !important;
+    height: 620px !important;
+    position: relative;
+    margin: 0 0 0 auto;
+    /* 预设变换避免重新计算 */
+    transform: rotateY(-10deg) rotateX(5deg);
+    will-change: transform; /* 优化动画性能 */
+    contain: layout style paint; /* 限制重排范围 */
+}
+
+.phone-screen {
+    /* 预设尺寸 */
+    width: 100%;
+    height: 100%;
+    /* 优化图片加载 */
+    object-fit: cover;
+    object-position: top center;
+    /* 防止布局偏移 */
+    display: block;
+    background-color: #0F172A; /* 占位背景 */
+}
+
+/* 2. 优化字体加载防止FOIT/FOUT */
+@font-face {
+    font-family: 'Segoe UI';
+    font-display: swap; /* 快速显示备用字体 */
+}
+
+/* 3. 预设关键元素尺寸 */
+.hero-stats {
+    /* 预设统计区域高度 */
+    min-height: 120px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-item {
+    /* 固定统计项尺寸 */
+    width: 160px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* 优化重绘 */
+    will-change: transform;
+    contain: layout style;
+}
+
+.hero-content .badge {
+    /* 预设徽章尺寸 */
+    height: 44px;
+    min-width: 200px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    /* 防止文本导致的布局偏移 */
+    white-space: nowrap;
+}
+
+/* 4. 优化动画性能 */
+.hero h1,
+.hero-subtitle,
+.hero-cta,
+.hero-stats {
+    /* 使用transform和opacity进行动画 */
+    will-change: transform, opacity;
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* 5. 减少重排的媒体查询优化 */
+@media (max-width: 992px) {
+    .phone-mockup {
+        width: 250px !important;
+        height: 520px !important;
+        margin: 0 auto;
+        transform: none;
+    }
+    
+    .hero-image-container {
+        min-height: 320px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+        min-height: 300px;
+    }
+    
+    .stat-item {
+        width: 200px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .phone-mockup {
+        width: 220px !important;
+        height: 460px !important;
+    }
+    
+    .hero-image-container {
+        min-height: 280px;
+    }
+    
+    .hero-stats {
+        min-height: 250px;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        width: 180px;
+        height: 70px;
+    }
+}
+
+/* 6. 优化图片加载 */
+img {
+    /* 防止图片导致的布局偏移 */
+    height: auto;
+    max-width: 100%;
+    /* 优化解码 */
+    image-rendering: auto;
+    /* 现代浏览器优化 */
+    content-visibility: auto;
+    contain-intrinsic-size: 300px 600px;
+}
+
+/* 7. 减少JavaScript阻塞时间的CSS优化 */
+.hero::before {
+    /* 简化背景动画减少CPU使用 */
+    animation-duration: 12s; /* 延长动画周期 */
+    animation-timing-function: ease-in-out;
+    /* 优化合成层 */
+    will-change: opacity;
+    transform: translateZ(0);
+}
+
+/* 8. 关键渲染路径优化 */
+.container {
+    /* 预设容器宽度避免重新计算 */
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    /* 优化包含块 */
+    contain: layout style;
+}
+
+/* 9. 减少样式重新计算 */
+.hero-grid {
+    /* 使用CSS Grid避免Flexbox重新计算 */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    /* 优化网格性能 */
+    contain: layout;
+}
+
+/* 10. 预加载状态优化 */
+.phone-screen:not(.loaded) {
+    /* 显示占位符避免空白 */
+    background: linear-gradient(135deg, #0F172A 0%, #1e293b 100%);
+    background-size: 400% 400%;
+    animation: shimmerPlaceholder 2s ease-in-out infinite;
+}
+
+@keyframes shimmerPlaceholder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 11. 关键CSS内联优化标记 */
+.critical-above-fold {
+    /* 标记关键CSS已内联 */
+    --critical-css-loaded: true;
+}
+
+/* 12. 减少重绘的优化 */
+.btn,
+.stat-item,
+.phone-mockup {
+    /* 使用transform进行hover效果 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* 避免改变layout属性 */
+}
+
+.btn:hover,
+.stat-item:hover {
+    /* 只使用transform和box-shadow */
+    transform: translateY(-2px);
+    /* 避免改变background-color等会触发重绘的属性 */
+}

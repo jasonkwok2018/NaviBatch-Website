@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Disallow test and development files
+Disallow: /test-*
+Disallow: /*-test.html
+Disallow: /mcp-test.html
+Disallow: /mobile-debug.html
+Disallow: /verify-fix.html
+Disallow: /refresh-test.html
+Disallow: /chrome-cache-fix.html
+
+# Allow important pages
+Allow: /landing.html
+Allow: /privacy*.html
+Allow: /support*.html
+Allow: /terms.html
+
+# Allow local city pages
+Allow: /melbourne.html
+Allow: /sydney.html
+
+# Allow dynamic city URLs
+Allow: /?city=*
+
+# Sitemap location
+Sitemap: https://www.navibatch.com/sitemap.xml
+
+# Crawl-delay for better server performance
+Crawl-delay: 1

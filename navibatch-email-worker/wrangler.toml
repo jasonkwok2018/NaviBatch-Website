@@ -1,0 +1,17 @@
+name = "navibatch-email-worker"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Environment variables (set these in Cloudflare dashboard or via wrangler secret)
+# wrangler secret put RESEND_API_KEY
+# wrangler secret put SENDGRID_API_KEY
+# wrangler secret put EMAILJS_SERVICE_ID
+# wrangler secret put EMAILJS_TEMPLATE_ID
+# wrangler secret put EMAILJS_USER_ID
+
+[env.production]
+name = "navibatch-email-worker"
+route = "navibatch-email.jasonkwok2018.workers.dev/*"
+
+[env.staging]
+name = "navibatch-email-worker-staging"

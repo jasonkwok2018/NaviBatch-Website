@@ -1,0 +1,162 @@
+NaviBatch App Store Metadata for All Languages
+==============================================
+
+PRIVACY POLICY URLs:
+-------------------
+English: https://www.navibatch.com/privacy.html
+Chinese (Simplified): https://www.navibatch.com/privacy-zh.html
+Chinese (Traditional): https://www.navibatch.com/privacy-zh-hant.html
+Japanese: https://www.navibatch.com/privacy-ja.html
+French: https://www.navibatch.com/privacy-fr.html
+German: https://www.navibatch.com/privacy-de.html
+Dutch: https://www.navibatch.com/privacy-nl.html
+Malay: https://www.navibatch.com/privacy-ms.html
+Italian: https://www.navibatch.com/privacy-it.html
+Hungarian: https://www.navibatch.com/privacy-hu.html
+Turkish: https://www.navibatch.com/privacy-tr.html
+Arabic: https://www.navibatch.com/privacy-ar.html
+Korean: https://www.navibatch.com/privacy-ko.html
+Russian: https://www.navibatch.com/privacy-ru.html
+Thai: https://www.navibatch.com/privacy-th.html
+Romanian: https://www.navibatch.com/privacy-ro.html
+Spanish: https://www.navibatch.com/privacy-es.html
+Portuguese: https://www.navibatch.com/privacy-pt.html
+Hebrew: https://www.navibatch.com/privacy-he.html
+Polish: https://www.navibatch.com/privacy-pl.html
+Greek: https://www.navibatch.com/privacy-el.html
+
+SUPPORT URLs (All Languages):
+-----------------------------
+https://www.navibatch.com/support.html
+
+APP DESCRIPTIONS:
+================
+
+English:
+--------
+NaviBatch revolutionizes delivery and route planning with patent-pending batch navigation technology. Optimize multiple delivery routes instantly, navigate to all destinations with one click, and boost your delivery efficiency by up to 40%. Perfect for delivery drivers, sales teams, and service professionals.
+
+Key Features:
+• One-click batch navigation (Patent pending)
+• Intelligent route optimization
+• Unlimited addresses (Pro version)
+• Photo proof of delivery
+• Import from files (CSV, Excel)
+• Real-time traffic integration
+
+Transform your delivery workflow today!
+
+Chinese (Simplified):
+--------------------
+NaviBatch通过专利申请中的批量导航技术革新配送和路线规划。即时优化多个配送路线，一键导航到所有目的地，将配送效率提升高达40%。完美适用于配送司机、销售团队和服务专业人员。
+
+主要功能：
+• 一键批量导航（专利申请中）
+• 智能路线优化
+• 无限地址（专业版）
+• 配送照片证明
+• 文件导入（CSV、Excel）
+• 实时交通集成
+
+立即改变您的配送工作流程！
+
+Chinese (Traditional):
+----------------------
+NaviBatch透過專利申請中的批量導航技術革新配送和路線規劃。即時優化多個配送路線，一鍵導航到所有目的地，將配送效率提升高達40%。完美適用於配送司機、銷售團隊和服務專業人員。
+
+主要功能：
+• 一鍵批量導航（專利申請中）
+• 智能路線優化
+• 無限地址（專業版）
+• 配送照片證明
+• 檔案匯入（CSV、Excel）
+• 即時交通整合
+
+立即改變您的配送工作流程！
+
+Japanese:
+---------
+NaviBatchは特許出願中のバッチナビゲーション技術で配送とルート計画を革新します。複数の配送ルートを瞬時に最適化し、ワンクリックですべての目的地にナビゲートし、配送効率を最大40%向上させます。配送ドライバー、営業チーム、サービス専門家に最適です。
+
+主な機能：
+• ワンクリックバッチナビゲーション（特許出願中）
+• インテリジェントルート最適化
+• 無制限アドレス（プロ版）
+• 配送証明写真
+• ファイルインポート（CSV、Excel）
+• リアルタイム交通統合
+
+今すぐ配送ワークフローを変革しましょう！
+
+French:
+-------
+NaviBatch révolutionne la livraison et la planification d'itinéraires avec une technologie de navigation par lots en instance de brevet. Optimisez instantanément plusieurs itinéraires de livraison, naviguez vers toutes les destinations en un clic et augmentez votre efficacité de livraison jusqu'à 40%. Parfait pour les livreurs, équipes de vente et professionnels de service.
+
+Fonctionnalités clés :
+• Navigation par lots en un clic (Brevet en cours)
+• Optimisation d'itinéraire intelligente
+• Adresses illimitées (version Pro)
+• Preuve photo de livraison
+• Import depuis fichiers (CSV, Excel)
+• Intégration trafic en temps réel
+
+Transformez votre flux de travail de livraison dès aujourd'hui !
+
+German:
+-------
+NaviBatch revolutioniert Lieferung und Routenplanung mit patentangemeldeter Batch-Navigationstechnologie. Optimieren Sie mehrere Lieferrouten sofort, navigieren Sie mit einem Klick zu allen Zielen und steigern Sie Ihre Liefereffizienz um bis zu 40%. Perfekt für Lieferfahrer, Verkaufsteams und Servicefachkräfte.
+
+Hauptfunktionen:
+• Ein-Klick-Batch-Navigation (Patent angemeldet)
+• Intelligente Routenoptimierung
+• Unbegrenzte Adressen (Pro-Version)
+• Foto-Liefernachweis
+• Import aus Dateien (CSV, Excel)
+• Echtzeit-Verkehrsintegration
+
+Transformieren Sie Ihren Lieferworkflow noch heute!
+
+KEYWORDS (All Languages):
+========================
+
+English: route planning, delivery optimization, batch navigation, GPS navigation, delivery app, route optimizer, logistics, delivery driver, navigation app, route planner
+
+Chinese (Simplified): 路线规划, 配送优化, 批量导航, GPS导航, 配送应用, 路线优化器, 物流, 配送司机, 导航应用, 路线规划器
+
+Chinese (Traditional): 路線規劃, 配送優化, 批量導航, GPS導航, 配送應用, 路線優化器, 物流, 配送司機, 導航應用, 路線規劃器
+
+Japanese: ルート計画, 配送最適化, バッチナビゲーション, GPSナビゲーション, 配送アプリ, ルートオプティマイザー, 物流, 配送ドライバー, ナビゲーションアプリ, ルートプランナー
+
+French: planification d'itinéraire, optimisation de livraison, navigation par lots, navigation GPS, app de livraison, optimiseur d'itinéraire, logistique, livreur, app de navigation, planificateur d'itinéraire
+
+German: Routenplanung, Lieferoptimierung, Batch-Navigation, GPS-Navigation, Liefer-App, Routenoptimierer, Logistik, Lieferfahrer, Navigations-App, Routenplaner
+
+Dutch: routeplanning, bezorgoptimalisatie, batch navigatie, GPS navigatie, bezorg app, route optimizer, logistiek, bezorger, navigatie app, routeplanner
+
+Malay: perancangan laluan, pengoptimuman penghantaran, navigasi kelompok, navigasi GPS, aplikasi penghantaran, pengoptimum laluan, logistik, pemandu penghantaran, aplikasi navigasi, perancang laluan
+
+Italian: pianificazione percorso, ottimizzazione consegna, navigazione batch, navigazione GPS, app consegna, ottimizzatore percorso, logistica, autista consegna, app navigazione, pianificatore percorso
+
+Hungarian: útvonaltervezés, szállítás optimalizálás, batch navigáció, GPS navigáció, szállítási alkalmazás, útvonal optimalizáló, logisztika, szállítási sofőr, navigációs alkalmazás, útvonaltervező
+
+Turkish: rota planlama, teslimat optimizasyonu, toplu navigasyon, GPS navigasyon, teslimat uygulaması, rota optimize edici, lojistik, teslimat şoförü, navigasyon uygulaması, rota planlayıcı
+
+Arabic: تخطيط المسار, تحسين التسليم, الملاحة المجمعة, ملاحة GPS, تطبيق التسليم, محسن المسار, اللوجستيات, سائق التسليم, تطبيق الملاحة, مخطط المسار
+
+Korean: 경로 계획, 배송 최적화, 배치 내비게이션, GPS 내비게이션, 배송 앱, 경로 최적화기, 물류, 배송 기사, 내비게이션 앱, 경로 플래너
+
+Russian: планирование маршрута, оптимизация доставки, пакетная навигация, GPS навигация, приложение доставки, оптимизатор маршрута, логистика, водитель доставки, навигационное приложение, планировщик маршрута
+
+Thai: การวางแผนเส้นทาง, การเพิ่มประสิทธิภาพการจัดส่ง, การนำทางแบบกลุ่ม, การนำทาง GPS, แอปจัดส่ง, ตัวเพิ่มประสิทธิภาพเส้นทาง, โลจิสติกส์, คนขับจัดส่ง, แอปนำทาง, ตัววางแผนเส้นทาง
+
+Romanian: planificare rută, optimizare livrare, navigare batch, navigare GPS, aplicație livrare, optimizator rută, logistică, șofer livrare, aplicație navigare, planificator rută
+
+Spanish: planificación de rutas, optimización de entrega, navegación por lotes, navegación GPS, app de entrega, optimizador de rutas, logística, conductor de entrega, app de navegación, planificador de rutas
+
+Portuguese: planejamento de rota, otimização de entrega, navegação em lote, navegação GPS, app de entrega, otimizador de rota, logística, motorista de entrega, app de navegação, planejador de rota
+
+Hebrew: תכנון מסלול, אופטימיזציה של משלוח, ניווט אצווה, ניווט GPS, אפליקציית משלוח, מייעל מסלול, לוגיסטיקה, נהג משלוח, אפליקציית ניווט, מתכנן מסלול
+
+Polish: planowanie tras, optymalizacja dostaw, nawigacja wsadowa, nawigacja GPS, aplikacja dostaw, optymalizator tras, logistyka, kierowca dostaw, aplikacja nawigacyjna, planer tras
+
+Greek: σχεδιασμός διαδρομής, βελτιστοποίηση παράδοσης, ομαδική πλοήγηση, πλοήγηση GPS, εφαρμογή παράδοσης, βελτιστοποιητής διαδρομής, logistics, οδηγός παράδοσης, εφαρμογή πλοήγησης, σχεδιαστής διαδρομής

@@ -1,0 +1,10 @@
+<svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 简单的文字logo -->
+  <style>
+    .logo-text { font-family: Arial, sans-serif; font-weight: 700; }
+  </style>
+  <text x="5" y="28" class="logo-text" font-size="24" fill="#00A3FF">NaviBatch</text>
+  <!-- 简单的导航图标 -->
+  <path d="M180 10 L190 20 L180 30" stroke="#00A3FF" stroke-width="3" fill="none"/>
+  <path d="M170 20 H187" stroke="#00A3FF" stroke-width="3"/>
+</svg>

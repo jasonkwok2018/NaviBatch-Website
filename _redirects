@@ -1,0 +1,33 @@
+# Cloudflare Pages 重定向规则
+# 根域名重定向到 www
+https://navibatch.com/* https://www.navibatch.com/:splat 301
+
+# Landing page redirects for advertising campaigns
+/ad /landing.html 301
+/ads /landing.html 301
+/promo /landing.html 301
+/campaign /landing.html 301
+/lp /landing.html 301
+
+# App Store redirects
+/app https://apps.apple.com/app/id6746371287 302
+/download https://apps.apple.com/app/id6746371287 302
+/appstore https://apps.apple.com/app/id6746371287 302
+
+# 主页重定向规则 - 移除 index.html 重定向避免循环
+/home / 301
+/index / 301
+
+# 重定向到正确的CSS资源
+/images/css/* /css/:splat 301
+/images/js/css/* /css/:splat 301
+/images/optimized/js/css/* /css/:splat 301
+/images/js/js/css/* /css/:splat 301
+
+# 确保CSS文件正确加载
+/css/* /css/:splat 200
+/js/* /js/:splat 200
+/images/* /images/:splat 200
+
+# 处理可能的路径问题
+/navibatch_homepage/* /:splat 301

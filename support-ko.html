@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지원 - NaviBatch</title>
+    <meta name="description" content="NaviBatch 지원 - 경로 계획, 내비게이션 및 배송 최적화에 대한 도움을 받으세요.">
+    <link rel="stylesheet" href="css/combined.min.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        .support-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            color: #1e293b;
+        }
+
+        .support-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 163, 255, 0.05) 0%, rgba(96, 165, 250, 0.05) 100%);
+            z-index: 1;
+        }
+
+        .support-header > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .support-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #00A3FF, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .support-header p {
+            color: #64748b;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .support-section {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .support-section:hover {
+            box-shadow: 0 8px 25px rgba(0, 163, 255, 0.1);
+            border-color: #00A3FF;
+        }
+
+        .support-section h2 {
+            color: #00A3FF;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .support-section h3 {
+            color: #1e40af;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .support-section p {
+            margin-bottom: 20px;
+            color: #334155;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .support-section ul, .support-section ol {
+            margin-bottom: 25px;
+            padding-left: 25px;
+        }
+
+        .support-section li {
+            margin-bottom: 12px;
+            color: #334155;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-method {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-method::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 163, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-method:hover::before {
+            left: 100%;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 163, 255, 0.2);
+            border-color: #00A3FF;
+        }
+
+        .contact-method i {
+            font-size: 2rem;
+            color: #00A3FF;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .contact-method h3 {
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .contact-method p {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .contact-method a {
+            color: #00A3FF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border: 2px solid #00A3FF;
+            border-radius: 8px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method a:hover {
+            background: #00A3FF;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #00A3FF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: rgba(0, 163, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: #00A3FF;
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .language-switcher {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .language-switcher a {
+            color: #00A3FF;
+            text-decoration: none;
+            margin: 5px 10px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .language-switcher a:hover {
+            background: rgba(0, 163, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .language-switcher .current {
+            color: #1e293b;
+            font-weight: 700;
+            background: #00A3FF;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 5px 10px;
+            display: inline-block;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 25px 0;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item:hover {
+            background: rgba(0, 163, 255, 0.02);
+            border-radius: 10px;
+            padding: 25px 20px;
+            margin: 0 -20px;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-question::before {
+            content: '❓';
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            padding-left: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .support-container {
+                padding: 100px 15px 40px;
+            }
+
+            .support-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .language-switcher a, .language-switcher .current {
+                margin: 3px 5px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="support-container">
+        <a href="#" class="back-link" onclick="window.location.href = window.location.origin + '/'; return false;">← NaviBatch로 돌아가기</a>
+
+        <div class="language-switcher">
+            <a href="/support.html">English</a>
+            <a href="/support-zh.html">中文</a>
+            <a href="/support-ja.html">日本語</a>
+            <a href="/support-fr.html">Français</a>
+            <a href="/support-de.html">Deutsch</a>
+            <a href="/support-es.html">Español</a>
+            <a href="/support-it.html">Italiano</a>
+            <a href="/support-ar.html">العربية</a>
+            <span class="current">한국어</span>
+            <a href="/support-pt.html">Português</a>
+            <a href="/support-ru.html">Русский</a>
+            <a href="/support-nl.html">Nederlands</a>
+        </div>
+
+        <div class="support-header">
+            <h1>NaviBatch 지원</h1>
+            <p>경로 계획, 내비게이션 및 배송 최적화에 대한 도움을 받으세요</p>
+        </div>
+
+        <div class="support-section">
+            <h2>📞 지원팀 연락</h2>
+            <p>저희 지원팀이 NaviBatch와 관련된 모든 질문이나 문제를 도와드립니다.</p>
+
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <h3>일반 지원</h3>
+                    <p>일반적인 질문 및 문의사항</p>
+                    <a href="mailto:supports@navibatch.com">supports@navibatch.com</a>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-bug"></i>
+                    <h3>기술적 문제</h3>
+                    <p>버그 및 기술적 문제 신고</p>
+                    <a href="mailto:supports@navibatch.com">supports@navibatch.com</a>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>기능 요청</h3>
+                    <p>새로운 기능 및 개선사항 제안</p>
+                    <a href="mailto:info@navibatch.com">info@navibatch.com</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-section">
+            <h2>❓ 자주 묻는 질문</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">배송 경로를 어떻게 최적화하나요?</div>
+                <div class="faq-answer">NaviBatch에 배송 주소를 추가하기만 하면, 저희 지능형 알고리즘이 자동으로 가장 효율적인 경로를 계산하여 시간과 연료를 절약해드립니다.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">파일에서 주소를 가져올 수 있나요?</div>
+                <div class="faq-answer">네! NaviBatch는 CSV 파일, Excel 스프레드시트, 텍스트 파일에서 주소 가져오기를 지원합니다. 여러 주소를 한 번에 붙여넣을 수도 있습니다.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">배치 내비게이션 기능은 어떻게 작동하나요?</div>
+                <div class="faq-answer">저희의 특허 출원 중인 배치 내비게이션 기술을 통해 한 번의 클릭으로 여러 주소로 내비게이션할 수 있으며, 각 배송을 완료할 때마다 자동으로 다음 목적지로 전환됩니다.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">내 데이터는 안전한가요?</div>
+                <div class="faq-answer">물론입니다. 저희는 업계 표준 암호화 및 보안 조치를 사용하여 귀하의 데이터를 보호합니다. 귀하의 경로 및 배송 정보는 안전하게 저장되며 제3자와 절대 공유되지 않습니다.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">NaviBatch를 오프라인으로 사용할 수 있나요?</div>
+                <div class="faq-answer">NaviBatch는 경로 최적화 및 실시간 내비게이션을 위해 인터넷 연결이 필요합니다. 하지만 경로가 최적화된 후에는 Apple Maps를 사용하여 오프라인 내비게이션을 할 수 있습니다.</div>
+            </div>
+        </div>
+
+        <div class="support-section">
+            <h2>🚀 시작하기</h2>
+            <h3>빠른 시작 가이드</h3>
+            <ol>
+                <li><strong>다운로드</strong> App Store에서 NaviBatch 다운로드</li>
+                <li><strong>주소 추가</strong> 입력, 붙여넣기 또는 파일에서 가져오기</li>
+                <li><strong>경로 최적화</strong> 지능형 알고리즘으로 경로 최적화</li>
+                <li><strong>내비게이션 시작</strong> 원클릭 배치 내비게이션</li>
+                <li><strong>진행 상황 추적</strong> 배송 증명 사진 촬영</li>
+            </ol>
+
+            <h3>프로 기능</h3>
+            <ul>
+                <li>무제한 주소 (무료 버전은 20개 제한)</li>
+                <li>원클릭 배치 내비게이션 (특허 출원 중)</li>
+                <li>고급 패키지 찾기</li>
+                <li>우선 고객 지원</li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <h2>📱 시스템 요구사항</h2>
+            <ul>
+                <li>iOS 16.0 이상</li>
+                <li>iPhone (전문 배송에 최적화)</li>
+                <li>경로 최적화를 위한 인터넷 연결</li>
+                <li>정확한 내비게이션을 위한 위치 서비스 권한</li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <h2>🔗 유용한 링크</h2>
+            <ul>
+                <li><a href="/privacy-ko.html">개인정보 처리방침</a></li>
+                <li><a href="/terms.html">서비스 약관</a></li>
+                <li><a href="https://apps.apple.com/app/id6746371287">App Store에서 다운로드</a></li>
+                <li><a href="/">NaviBatch 홈페이지</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

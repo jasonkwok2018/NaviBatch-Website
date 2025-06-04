@@ -1,0 +1,3367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <!-- 不使用base标签，避免路径解析问题 -->
+    <title>NaviBatch - 60x Faster Route Planning App for Delivery Drivers | Multi-Stop Navigation</title>
+    <meta name="description" content="Save 60% time and 30% fuel with NaviBatch's AI-powered route optimization. The fastest multi-stop navigation app for delivery drivers, couriers, and logistics companies. Free version with 20 stops + proof of delivery.">
+
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="route planning app, delivery route optimization, multi-stop navigation, batch navigation, courier app, delivery driver app, AI route optimization, fuel saving app, GPS navigation, logistics software, delivery management, proof of delivery, 60x faster route planning, one-click batch navigation, delivery navigation optimization">
+    <meta name="author" content="NaviBatch">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+
+    <!-- 强制缓存控制 - 确保地理位置功能立即生效 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 版本控制 - 新favicon版本 -->
+    <meta name="version" content="2.4.0-new-favicon">
+    <meta name="last-modified" content="2025-01-04T16:15:00Z">
+    <link rel="canonical" href="https://www.navibatch.com/">
+
+    <!-- 缓存清除脚本 - 确保地理位置功能立即生效 -->
+    <script>
+    (function() {
+        const currentVersion = '2.1.0-geo-hk';
+        const lastVersion = localStorage.getItem('navibatch-version');
+
+        if (lastVersion !== currentVersion) {
+            // 版本更新，清除相关缓存
+            console.log('🔄 Version updated from', lastVersion, 'to', currentVersion);
+
+            // 清除位置缓存
+            sessionStorage.removeItem('userLocation');
+            localStorage.removeItem('userLocation');
+
+            // 更新版本号
+            localStorage.setItem('navibatch-version', currentVersion);
+
+            // 如果是从旧版本更新，强制刷新一次
+            if (lastVersion && !sessionStorage.getItem('force-refreshed')) {
+                sessionStorage.setItem('force-refreshed', 'true');
+                console.log('🔄 Force refreshing for geo-location update...');
+                window.location.reload(true);
+                return;
+            }
+        }
+    })();
+    </script>
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="application-name" content="NaviBatch">
+    <meta name="apple-mobile-web-app-title" content="NaviBatch">
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#00A3FF">
+    <meta name="msapplication-TileColor" content="#00A3FF">
+    <meta name="msapplication-config" content="browserconfig.xml">
+
+    <!-- DNS预解析和预连接 -->
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <!-- 预加载关键资源 - 移动端优化 -->
+    <link rel="preload" href="/css/critical.min.css?v=1.2.0" as="style" fetchpriority="high">
+    <link rel="preload" href="/js/main.min.js?v=1.0.4" as="script" fetchpriority="high">
+    <!-- 移动端条件预加载图片 - 优化版本 -->
+    <link rel="preload" href="/images/hero-screenshot-mobile.webp" as="image" type="image/webp" fetchpriority="high" media="(max-width: 768px)">
+    <link rel="preload" href="/images/hero-screenshot-hq.webp" as="image" fetchpriority="high" type="image/webp" media="(min-width: 769px)">
+
+    <!-- 性能优化CSS - 修复CLS和提升性能 -->
+    <link rel="preload" href="/css/performance-fixes.min.css?v=1.0.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/performance-fixes.min.css?v=1.0.0"></noscript>
+
+    <!-- 移动端修复CSS - iPhone XS等小屏幕设备 -->
+    <link rel="preload" href="/css/mobile-fixes.min.css?v=1.0.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/mobile-fixes.min.css?v=1.0.0"></noscript>
+
+    <!-- 优化移动端性能的图片预加载脚本 -->
+    <script>
+    (function() {
+        // 检测设备类型和网络状况
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const isSlowConnection = connection && (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g');
+
+        // 移动端或慢网络下延迟预加载
+        if (isMobile || isSlowConnection) {
+            // 使用Intersection Observer实现懒加载
+            if ('IntersectionObserver' in window) {
+                sessionStorage.setItem('useLazyLoading', 'true');
+                console.log('📱 Mobile/slow connection detected - using lazy loading');
+                return;
+            }
+        }
+
+        // 优化的图片预加载策略
+        function preloadHeroImage() {
+            // 检测设备类型
+            const isMobile = window.innerWidth <= 768;
+
+            // 检测WebP支持
+            const webp = new Image();
+            webp.onload = webp.onerror = function() {
+                const supportsWebP = webp.height === 2;
+
+                // 根据设备选择最优图片
+                let imageUrl;
+                if (isMobile) {
+                    imageUrl = supportsWebP ? '/images/hero-screenshot-mobile.webp' : '/images/hero-screenshot.png';
+                } else {
+                    imageUrl = supportsWebP ? '/images/hero-screenshot-hq.webp' : '/images/hero-screenshot.png';
+                }
+
+                const preloadImg = new Image();
+                preloadImg.onload = function() {
+                    console.log('✅ Hero image preloaded:', imageUrl);
+                    sessionStorage.setItem('heroImagePreloaded', supportsWebP ? (isMobile ? 'mobile-webp' : 'webp') : 'png');
+                };
+                preloadImg.onerror = function() {
+                    console.log('⚠️ Hero image preload failed');
+                };
+                preloadImg.src = imageUrl;
+            };
+            webp.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+        }
+
+        // 延迟执行预加载，避免阻塞关键渲染路径
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(preloadHeroImage, 100);
+            });
+        } else {
+            setTimeout(preloadHeroImage, 100);
+        }
+    })();
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.navibatch.com/">
+    <meta property="og:title" content="NaviBatch - 60x Faster Route Planning App for Delivery Drivers">
+    <meta property="og:description" content="AI-powered route optimization saves 60% time and 30% fuel. Free version with 20 stops + proof of delivery. The fastest multi-stop navigation app for delivery professionals.">
+    <meta property="og:image" content="https://www.navibatch.com/images/navibatch-og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="NaviBatch">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.navibatch.com/">
+    <meta property="twitter:title" content="NaviBatch - 60x Faster Route Planning App">
+    <meta property="twitter:description" content="AI-powered route optimization saves 60% time and 30% fuel. Free version with 20 stops + proof of delivery. Perfect for delivery drivers.">
+    <meta property="twitter:image" content="https://www.navibatch.com/images/navibatch-og-image.png">
+    <meta property="twitter:site" content="@navi_batch">
+    <meta property="twitter:creator" content="@navi_batch">
+
+    <!-- Structured Data / Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "NaviBatch",
+      "description": "AI-powered route optimization app that saves 60% time and 30% fuel for delivery drivers, couriers, and logistics companies. Features multi-stop navigation, proof of delivery, and batch route planning.",
+      "url": "https://www.navibatch.com",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "iOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free version with 20 stops, Pro version available"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "500",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "NaviBatch",
+        "url": "https://www.navibatch.com"
+      },
+      "keywords": "route planning app, delivery optimization, multi-stop navigation, batch navigation, courier app, AI route optimization",
+      "featureList": [
+        "60x faster route planning",
+        "Multi-stop navigation up to 20 stops (free)",
+        "Proof of delivery with photos",
+        "AI-powered route optimization",
+        "Fuel saving optimization",
+        "One-click batch navigation",
+        "Smart photo album system"
+      ]
+    }
+    </script>
+
+    <!-- Geo-Location Detection Script -->
+    <script>
+    // 地理位置智能检测系统
+    (function() {
+        // 地区配置数据
+        const locationConfig = {
+            'AU': {
+                country: 'Australia',
+                cities: {
+                    'Melbourne': { name: 'Melbourne', timezone: 'Australia/Melbourne' },
+                    'Sydney': { name: 'Sydney', timezone: 'Australia/Sydney' },
+                    'Brisbane': { name: 'Brisbane', timezone: 'Australia/Brisbane' },
+                    'Perth': { name: 'Perth', timezone: 'Australia/Perth' },
+                    'Adelaide': { name: 'Adelaide', timezone: 'Australia/Adelaide' }
+                },
+                currency: 'AUD',
+                language: 'en-AU'
+            },
+            'US': {
+                country: 'United States',
+                cities: {
+                    'New York': { name: 'New York', timezone: 'America/New_York' },
+                    'Los Angeles': { name: 'Los Angeles', timezone: 'America/Los_Angeles' },
+                    'Chicago': { name: 'Chicago', timezone: 'America/Chicago' },
+                    'Houston': { name: 'Houston', timezone: 'America/Chicago' },
+                    'Miami': { name: 'Miami', timezone: 'America/New_York' }
+                },
+                currency: 'USD',
+                language: 'en-US'
+            },
+            'GB': {
+                country: 'United Kingdom',
+                cities: {
+                    'London': { name: 'London', timezone: 'Europe/London' },
+                    'Manchester': { name: 'Manchester', timezone: 'Europe/London' },
+                    'Birmingham': { name: 'Birmingham', timezone: 'Europe/London' },
+                    'Liverpool': { name: 'Liverpool', timezone: 'Europe/London' }
+                },
+                currency: 'GBP',
+                language: 'en-GB'
+            },
+            'CA': {
+                country: 'Canada',
+                cities: {
+                    'Toronto': { name: 'Toronto', timezone: 'America/Toronto' },
+                    'Vancouver': { name: 'Vancouver', timezone: 'America/Vancouver' },
+                    'Montreal': { name: 'Montreal', timezone: 'America/Montreal' },
+                    'Calgary': { name: 'Calgary', timezone: 'America/Edmonton' }
+                },
+                currency: 'CAD',
+                language: 'en-CA'
+            },
+            'HK': {
+                country: 'Hong Kong',
+                cities: {
+                    'Hong Kong': { name: 'Hong Kong', timezone: 'Asia/Hong_Kong' },
+                    'Central': { name: 'Central', timezone: 'Asia/Hong_Kong' },
+                    'Kowloon': { name: 'Kowloon', timezone: 'Asia/Hong_Kong' },
+                    'New Territories': { name: 'New Territories', timezone: 'Asia/Hong_Kong' }
+                },
+                currency: 'HKD',
+                language: 'zh-HK'
+            },
+            'SG': {
+                country: 'Singapore',
+                cities: {
+                    'Singapore': { name: 'Singapore', timezone: 'Asia/Singapore' }
+                },
+                currency: 'SGD',
+                language: 'en-SG'
+            },
+            'JP': {
+                country: 'Japan',
+                cities: {
+                    'Tokyo': { name: 'Tokyo', timezone: 'Asia/Tokyo' },
+                    'Osaka': { name: 'Osaka', timezone: 'Asia/Tokyo' },
+                    'Yokohama': { name: 'Yokohama', timezone: 'Asia/Tokyo' },
+                    'Nagoya': { name: 'Nagoya', timezone: 'Asia/Tokyo' }
+                },
+                currency: 'JPY',
+                language: 'ja-JP'
+            },
+            'KR': {
+                country: 'South Korea',
+                cities: {
+                    'Seoul': { name: 'Seoul', timezone: 'Asia/Seoul' },
+                    'Busan': { name: 'Busan', timezone: 'Asia/Seoul' },
+                    'Incheon': { name: 'Incheon', timezone: 'Asia/Seoul' }
+                },
+                currency: 'KRW',
+                language: 'ko-KR'
+            }
+        };
+
+        // 检测用户地理位置 - 优化版本（仅使用ipinfo.io）
+        async function detectUserLocation() {
+            // 方法1: 使用可靠的ipinfo.io API
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+
+                const response = await fetch('https://ipinfo.io/json', {
+                    signal: controller.signal,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                clearTimeout(timeoutId);
+
+                if (response.ok) {
+                    const data = await response.json();
+
+                    // 处理ipinfo.io响应格式
+                    const countryCode = data.country;
+                    const countryName = data.country;
+                    const city = data.city;
+                    const timezone = data.timezone;
+
+                    if (countryCode && locationConfig[countryCode]) {
+                        const countryData = locationConfig[countryCode];
+                        const detectedCity = city || Object.keys(countryData.cities)[0];
+
+                        console.log('🌍 Location detected via ipinfo.io:', {
+                            country: countryName,
+                            city: detectedCity,
+                            countryCode: countryCode,
+                            timezone: timezone
+                        });
+
+                        return {
+                            country: countryData.country,
+                            countryCode: countryCode,
+                            city: detectedCity,
+                            timezone: timezone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+                            currency: countryData.currency,
+                            language: countryData.language
+                        };
+                    }
+                }
+            } catch (error) {
+                console.log('ipinfo.io API failed:', error.message);
+            }
+
+            console.log('🔄 Geo API failed, using timezone fallback');
+
+            // 方法2: 时区检测作为备用
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const language = navigator.language || 'en-US';
+
+            // 根据时区推断位置
+            for (const [countryCode, countryData] of Object.entries(locationConfig)) {
+                for (const [cityName, cityData] of Object.entries(countryData.cities)) {
+                    if (cityData.timezone === timezone) {
+                        console.log('🕐 Location detected via timezone:', {
+                            country: countryData.country,
+                            city: cityName,
+                            timezone
+                        });
+
+                        return {
+                            country: countryData.country,
+                            countryCode: countryCode,
+                            city: cityName,
+                            timezone: timezone,
+                            currency: countryData.currency,
+                            language: countryData.language
+                        };
+                    }
+                }
+            }
+
+            // 方法3: 根据语言推断（最后备用）
+            const languageMapping = {
+                'en-AU': { countryCode: 'AU', city: 'Melbourne' },
+                'en-US': { countryCode: 'US', city: 'New York' },
+                'en-GB': { countryCode: 'GB', city: 'London' },
+                'en-CA': { countryCode: 'CA', city: 'Toronto' },
+                'zh-HK': { countryCode: 'HK', city: 'Hong Kong' },
+                'zh-CN': { countryCode: 'HK', city: 'Hong Kong' }, // 简体中文用户可能在香港
+                'zh-TW': { countryCode: 'HK', city: 'Hong Kong' }, // 繁体中文用户可能在香港
+                'ja-JP': { countryCode: 'JP', city: 'Tokyo' },
+                'ko-KR': { countryCode: 'KR', city: 'Seoul' }
+            };
+
+            const langData = languageMapping[language];
+            if (langData && locationConfig[langData.countryCode]) {
+                const countryData = locationConfig[langData.countryCode];
+
+                console.log('🗣️ Location detected via language:', {
+                    language,
+                    country: countryData.country,
+                    city: langData.city
+                });
+
+                return {
+                    country: countryData.country,
+                    countryCode: langData.countryCode,
+                    city: langData.city,
+                    timezone: timezone,
+                    currency: countryData.currency,
+                    language: countryData.language
+                };
+            }
+
+            // 默认返回（如果无法检测）
+            console.log('🌐 Using global fallback');
+            return {
+                country: 'Global',
+                countryCode: 'GLOBAL',
+                city: 'Your City',
+                timezone: timezone,
+                currency: 'USD',
+                language: language
+            };
+        }
+
+        // 应用本地化内容
+        function applyLocalization(locationData) {
+            // 存储位置信息
+            window.userLocation = locationData;
+            sessionStorage.setItem('userLocation', JSON.stringify(locationData));
+
+            // 更新页面内容
+            updateLocalizedContent(locationData);
+
+            // 触发自定义事件
+            window.dispatchEvent(new CustomEvent('locationDetected', {
+                detail: locationData
+            }));
+        }
+
+        // 更新本地化内容
+        function updateLocalizedContent(location) {
+            // 更新标题中的地理位置
+            const heroTitle = document.querySelector('.hero h1.main-title');
+            if (heroTitle && location.city !== 'Your City') {
+                heroTitle.innerHTML = `60x Faster Route Planning in <span class="location-highlight">${location.city}</span>`;
+            }
+
+            // 更新副标题
+            const heroSubtitle = document.querySelector('.hero-subtitle');
+            if (heroSubtitle && location.city !== 'Your City') {
+                heroSubtitle.innerHTML = `Save up to 60% time and 30% fuel costs with our AI-powered multi-stop navigation and batch route optimization. The fastest delivery route planning app for drivers, couriers, and logistics companies in ${location.city}, ${location.country}.`;
+            }
+
+            // 更新FAQ内容
+            updateLocalizedFAQ(location);
+
+            // 更新成功案例
+            updateLocalizedCaseStudies(location);
+        }
+
+        // 更新FAQ本地化内容
+        function updateLocalizedFAQ(location) {
+            const faqItems = document.querySelectorAll('.faq-item');
+            if (faqItems.length > 0 && location.city !== 'Your City') {
+                // 更新第一个FAQ
+                const firstFAQ = faqItems[0];
+                if (firstFAQ) {
+                    const answer = firstFAQ.querySelector('p');
+                    if (answer) {
+                        answer.innerHTML = `NaviBatch uses AI-powered batch navigation technology to import and optimize multiple addresses instantly in ${location.city}. While traditional methods require manually entering each address (3-5 seconds each), NaviBatch can process unlimited addresses in just 1 second with our patent-pending one-click batch navigation system, perfect for ${location.city} delivery drivers.`;
+                    }
+                }
+            }
+        }
+
+        // 更新本地化成功案例
+        function updateLocalizedCaseStudies(location) {
+            if (location.city !== 'Your City') {
+                const caseStudyCards = document.querySelectorAll('.case-study-card h3');
+
+                if (caseStudyCards.length >= 3) {
+                    // 更新第一个案例
+                    caseStudyCards[0].innerHTML = `This ${location.city} delivery company saves 2 hours of route planning time every day with NaviBatch`;
+
+                    // 更新第二个案例
+                    caseStudyCards[1].innerHTML = `This ${location.city} courier increased daily deliveries by 30% using NaviBatch`;
+
+                    // 更新第三个案例
+                    caseStudyCards[2].innerHTML = `This ${location.city} logistics company saves 15% on fuel costs every month`;
+                }
+
+                // 更新成功案例部分的描述
+                const caseStudyDesc = document.querySelector('#case-studies .section-header p');
+                if (caseStudyDesc) {
+                    caseStudyDesc.innerHTML = `Real results from delivery professionals using NaviBatch in ${location.city} and ${location.country}`;
+                }
+            }
+        }
+
+        // 更新SEO元标签
+        function updateSEOTags(location) {
+            if (location.city !== 'Your City') {
+                // 更新页面标题
+                document.title = `NaviBatch - Best Route Planning App in ${location.city} | 60x Faster Delivery Navigation`;
+
+                // 更新meta描述
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.content = `Save 60% time and 30% fuel with NaviBatch's AI-powered route optimization in ${location.city}. The fastest multi-stop navigation app for delivery drivers and couriers in ${location.city}, ${location.country}. Free version with 20 stops.`;
+                }
+
+                // 更新关键词
+                const metaKeywords = document.querySelector('meta[name="keywords"]');
+                if (metaKeywords) {
+                    metaKeywords.content = `${location.city} route planning app, ${location.city} delivery optimization, ${location.city} multi-stop navigation, ${location.city} courier app, ${location.city} delivery driver app, ${location.city} logistics software, route planning ${location.city}, delivery app ${location.city}`;
+                }
+
+                // 更新Open Graph标签
+                const ogTitle = document.querySelector('meta[property="og:title"]');
+                if (ogTitle) {
+                    ogTitle.content = `NaviBatch - Best Route Planning App in ${location.city}`;
+                }
+
+                const ogDesc = document.querySelector('meta[property="og:description"]');
+                if (ogDesc) {
+                    ogDesc.content = `AI-powered route optimization saves 60% time and 30% fuel in ${location.city}. Free version with 20 stops + proof of delivery. Perfect for ${location.city} delivery professionals.`;
+                }
+
+                // 更新Twitter卡片
+                const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+                if (twitterTitle) {
+                    twitterTitle.content = `NaviBatch - ${location.city} Route Planning App`;
+                }
+
+                const twitterDesc = document.querySelector('meta[property="twitter:description"]');
+                if (twitterDesc) {
+                    twitterDesc.content = `AI-powered route optimization saves 60% time and 30% fuel in ${location.city}. Free version with 20 stops + proof of delivery.`;
+                }
+            }
+        }
+
+        // 更新应用本地化内容函数
+        function applyLocalization(locationData) {
+            // 存储位置信息
+            window.userLocation = locationData;
+            sessionStorage.setItem('userLocation', JSON.stringify(locationData));
+
+            // 更新页面内容
+            updateLocalizedContent(locationData);
+
+            // 更新SEO标签
+            updateSEOTags(locationData);
+
+            // 触发自定义事件
+            window.dispatchEvent(new CustomEvent('locationDetected', {
+                detail: locationData
+            }));
+
+            console.log('🌍 Location detected:', locationData);
+        }
+
+        // 检查URL参数中的城市设置
+        function checkURLParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const cityParam = urlParams.get('city');
+
+            if (cityParam) {
+                // 根据URL参数设置城市
+                const cityMappings = {
+                    'melbourne': { city: 'Melbourne', country: 'Australia', countryCode: 'AU' },
+                    'sydney': { city: 'Sydney', country: 'Australia', countryCode: 'AU' },
+                    'london': { city: 'London', country: 'United Kingdom', countryCode: 'GB' },
+                    'newyork': { city: 'New York', country: 'United States', countryCode: 'US' },
+                    'toronto': { city: 'Toronto', country: 'Canada', countryCode: 'CA' },
+                    'hongkong': { city: 'Hong Kong', country: 'Hong Kong', countryCode: 'HK' },
+                    'singapore': { city: 'Singapore', country: 'Singapore', countryCode: 'SG' },
+                    'tokyo': { city: 'Tokyo', country: 'Japan', countryCode: 'JP' },
+                    'seoul': { city: 'Seoul', country: 'South Korea', countryCode: 'KR' }
+                };
+
+                const cityData = cityMappings[cityParam.toLowerCase()];
+                if (cityData) {
+                    const locationData = {
+                        ...cityData,
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        currency: locationConfig[cityData.countryCode]?.currency || 'USD',
+                        language: locationConfig[cityData.countryCode]?.language || 'en-US'
+                    };
+
+                    applyLocalization(locationData);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // 初始化地理位置检测
+        if (!checkURLParameters()) {
+            detectUserLocation().then(applyLocalization);
+        }
+    })();
+    </script>
+
+    <!-- 关键CSS内联 -->
+    <style>
+    /* 关键渲染路径CSS - 精简版 */
+    :root {
+      --primary-color: #00A3FF;
+      --secondary-color: #0077B6;
+      --dark-bg: #0F172A;
+      --darker-bg: #060F1E;
+      --text-color: #FFFFFF;
+      --light-text: #CBD5E1;
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-color);
+      background-color: var(--dark-bg);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background-color: var(--darker-bg);
+      z-index: 100;
+      padding: 1rem 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: var(--transition);
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+
+    .hero {
+      padding: 100px 0 80px;
+      background-color: var(--darker-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0 0 20px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: var(--darker-bg);
+      box-shadow: 0 5px 15px rgba(0, 163, 255, 0.3);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* 比较部分关键样式 */
+    .bg-dark {
+      background-color: #080F20;
+      position: relative;
+    }
+
+    .comparison-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin: 3rem 0;
+      position: relative;
+    }
+
+    .comparison-card {
+      background-color: rgba(30, 41, 59, 0.8);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .comparison-card.traditional {
+      border-left: 4px solid #ef4444;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.7));
+    }
+
+    .comparison-card.navibatch {
+      border-left: 4px solid #00A3FF;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
+    }
+
+    .vs-badge {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #ef4444, #00A3FF);
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 1.2rem;
+      z-index: 10;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (min-width: 768px) {
+      .comparison-container {
+        flex-direction: row;
+        align-items: stretch;
+      }
+      .comparison-card {
+        flex: 1;
+      }
+    }
+
+    /* 早期采用者卡片居中 */
+    .social-proof.be-first {
+      margin: 2rem auto;
+      max-width: 500px;
+    }
+
+    /* ===== 新版 Hero 样式 ===== */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 80px 0 180px;
+      overflow: hidden;
+      /* 防止布局偏移 - 强化版 */
+      min-height: 700px;
+      contain: layout style paint;
+      will-change: auto;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(0, 163, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 214, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 163, 255, 0.05) 0%, transparent 50%);
+      animation: backgroundPulse 8s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes backgroundPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .hero-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      color: #f8fafc;
+      z-index: 1;
+    }
+
+    .hero-wave svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 3;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .hero-content .badge {
+      display: inline-block !important;
+      background: linear-gradient(135deg, rgba(0, 163, 255, 0.2), rgba(255, 214, 0, 0.2)) !important;
+      backdrop-filter: blur(10px) !important;
+      padding: 10px 20px !important;
+      border-radius: 50px !important;
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      margin-bottom: 20px !important;
+      color: #FFD600 !important;
+      border: 1px solid rgba(255, 214, 0, 0.3) !important;
+      animation: fadeInDown 0.8s ease-out !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .hero-content .badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: badgeShine 3s ease-in-out infinite;
+    }
+
+    @keyframes badgeShine {
+      0% { left: -100%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      font-weight: 800;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero h1.main-title {
+      color: #f8fafc;
+      margin-bottom: 8px;
+    }
+
+    .hero h1.sub-title {
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, #00A3FF, #FFD600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      display: inline-block;
+      animation: shimmer 2s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      background: rgba(96, 165, 250, 0.3);
+      z-index: -1;
+      border-radius: 4px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin-bottom: 40px;
+      max-width: 90%;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 60px;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .btn-large {
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-large i {
+      margin-right: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00A3FF, #0081CC);
+      color: #FFFFFF;
+      border: none;
+      font-weight: 700;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 163, 255, 0.3);
+      transform: scale(1.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0081CC, #0066A3);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 163, 255, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #cbd5e1;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      font-weight: 500;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.5);
+      color: white;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      animation: fadeInUp 0.8s ease-out 0.6s both;
+    }
+
+    .stat-item {
+      text-align: center;
+      position: relative;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 163, 255, 0.2);
+    }
+
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00A3FF, #FFD600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 8px;
+      animation: countUp 1s ease-out 0.8s both;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+
+    @keyframes countUp {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .hero-image-container {
+      position: relative;
+      perspective: 1000px;
+    }
+
+    .phone-mockup {
+      position: relative;
+      width: 300px;
+      height: 620px;
+      margin: 0 0 0 auto; /* 将margin-left改为0，margin-right改为auto */
+      background: #111827;
+      border-radius: 46px;
+      padding: 10px;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 0 0 1px rgba(0, 0, 0, 0.5);
+      transform: rotateY(-10deg) rotateX(5deg);
+      transform-style: preserve-3d;
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+      overflow: hidden;
+      /* 防止布局偏移 */
+      contain: layout style paint;
+      will-change: transform;
+    }
+
+    .phone-mockup:hover {
+      transform: rotateY(-5deg) rotateX(5deg) translateY(-5px);
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 0 0 1px rgba(0, 0, 0, 0.5);
+    }
+
+    .dynamic-island {
+      position: absolute;
+      width: 140px;
+      height: 34px;
+      background: #0a0a0a;
+      border-radius: 17px;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      box-sizing: border-box;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .phone-mockup:hover .dynamic-island {
+      width: 160px;
+      height: 36px;
+      border-radius: 18px;
+    }
+
+    .dynamic-island::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: #1a1a1a;
+      border: 2px solid #2a2a2a;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .dynamic-island::after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: #0a84ff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+
+    .dynamic-island-content {
+      flex: 1;
+      height: 8px;
+      background: #1a1a1a;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .dynamic-island-content::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 40%;
+      background: #3b82f6;
+      border-radius: 4px;
+      animation: progress 3s infinite ease-in-out;
+    }
+
+    @keyframes progress {
+      0% { width: 10%; left: 0; }
+      50% { width: 70%; }
+      100% { width: 10%; left: 90%; }
+    }
+
+    .phone-screen-container {
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      position: relative;
+      overflow: hidden;
+      background-color: #1e293b;
+      z-index: 10; /* 确保图片容器在浮动卡片之上 */
+    }
+
+    .phone-screen {
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: 30px;
+      object-fit: cover !important;
+      object-position: top center !important;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      background-color: #1e293b !important;
+      transition: opacity 0.5s ease !important;
+    }
+
+    .hero-fallback {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 30px;
+    }
+
+    .fallback-content {
+      text-align: center;
+      color: #94a3b8;
+      padding: 20px;
+    }
+
+    .app-icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    .app-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #00A3FF;
+    }
+
+    .app-desc {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    .floating-card {
+      position: absolute;
+      padding: 12px 20px;
+      background-color: white !important;
+      color: #333 !important;
+      border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      font-weight: 600;
+      font-size: 0.9rem;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      opacity: 1 !important;
+      pointer-events: none;
+      /* CLS优化 - 防止布局偏移 */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    .floating-card i {
+      color: #3b82f6;
+    }
+
+    .card-1 {
+      top: 20%;
+      left: -20px;
+      animation: floatOptimized 3s ease-in-out infinite;
+    }
+
+    .card-2 {
+      bottom: 15%;
+      right: -20px;
+      animation: floatOptimized 3s ease-in-out 0.5s infinite;
+    }
+
+    @keyframes floatOptimized {
+      0%, 100% { transform: translateY(0) translateZ(0); }
+      50% { transform: translateY(-10px) translateZ(0); }
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-content {
+        margin: 0 auto;
+        max-width: 100%;
+      }
+
+      .hero-subtitle {
+        max-width: 100%;
+      }
+
+      .hero-cta {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .hero-image-container {
+        margin-top: 60px;
+      }
+
+      /* 强制手机模型图片在移动端正确显示 */
+      .phone-screen {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: top center !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background-color: #0F172A !important;
+        border-radius: 30px !important;
+        transition: opacity 0.3s ease !important;
+        /* 确保在Chrome移动端正确显示 */
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+        will-change: auto !important;
+      }
+
+      .phone-mockup img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: top center !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        /* Chrome移动端兼容性修复 */
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+        backface-visibility: hidden !important;
+        -webkit-backface-visibility: hidden !important;
+      }
+
+      /* 移动端优化浮动卡片，避免CLS */
+      .floating-card {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transform: translateY(0) translateZ(0) !important;
+        animation: none !important;
+        contain: layout style paint !important;
+      }
+    }
+
+    /* 团队故事部分样式 */
+    .our-story-section {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 100px 0;
+    }
+
+    .our-story-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231E40AF' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.1;
+    }
+
+    .story-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .story-image-wrapper {
+      flex: 1;
+      min-width: 350px;
+      position: relative;
+    }
+
+    .story-image {
+      position: relative;
+      z-index: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+      transition: all 0.5s ease;
+    }
+
+    .story-image:hover {
+      transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+    }
+
+    .story-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .story-badge {
+      position: absolute;
+      z-index: 3;
+      top: -15px;
+      left: -15px;
+      background: #3b82f6;
+      color: white;
+      font-weight: 700;
+      padding: 15px 25px;
+      border-radius: 50px;
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .story-badge i {
+      font-size: 1.2rem;
+    }
+
+    /* 移除之前的team-banner相关样式 */
+
+    .story-experience-chips {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .experience-chip {
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .experience-chip:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .experience-chip:nth-child(3) {
+      animation-delay: 2s;
+    }
+
+    .experience-chip i {
+      color: #3b82f6;
+    }
+
+    .story-content {
+      flex: 1;
+      min-width: 350px;
+    }
+
+    .story-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: 800;
+      position: relative;
+    }
+
+    .story-content h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: #3b82f6;
+      border-radius: 2px;
+    }
+
+    .story-highlight {
+      color: #60a5fa;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin: 25px 0;
+      padding-left: 20px;
+      border-left: 4px solid #3b82f6;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .story-highlight i {
+      font-size: 1.5rem;
+    }
+
+    .story-content p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #cbd5e1;
+      margin-bottom: 25px;
+    }
+
+    .story-quote {
+      border-radius: 8px;
+      padding: 25px;
+      background: rgba(59, 130, 246, 0.08);
+      margin: 30px 0;
+      font-style: italic;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: none;
+      color: #e2e8f0;
+    }
+
+    .clean-quote {
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 12px;
+      padding: 25px 30px;
+      position: relative;
+      border: none;
+      box-shadow: none;
+      font-style: italic;
+      display: block;
+    }
+
+    /* 移动端优化 */
+    @media (max-width: 767px) {
+      .clean-quote {
+        padding: 20px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+
+    .stats-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      justify-content: space-between;
+    }
+
+    .stat-item {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 25px 20px;
+      border-radius: 15px;
+      flex: 1;
+      min-width: 180px;
+      max-width: 220px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: visible;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #60a5fa;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: visible;
+      width: 100%;
+      padding: 0 5px;
+    }
+
+    .plus-sign {
+      color: #60a5fa;
+      font-weight: 800;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* 已移动到上方的floatOptimized动画 */
+
+    /* 移动端优化 */
+    @media (max-width: 1024px) {
+      .story-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 15px;
+      }
+
+      .story-content h2 {
+        font-size: 2rem;
+      }
+
+      .story-content h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .story-highlight {
+        justify-content: center;
+        padding-left: 0;
+        border-left: none;
+        padding-bottom: 15px;
+        border-bottom: 4px solid #3b82f6;
+        font-size: 1.1rem;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .stats-container {
+        justify-content: center;
+      }
+
+      .story-badge {
+        position: relative;
+        left: auto;
+        top: auto;
+        display: inline-flex;
+        margin-bottom: 20px;
+        transform: none;
+      }
+
+      .story-image-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .story-image {
+        width: 100%;
+        max-width: 450px;
+        transform: none !important;
+      }
+
+      .story-experience-chips {
+        position: static;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+        transform: none;
+        width: 100%;
+        max-width: 450px;
+      }
+
+      .experience-chip {
+        animation: none;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .story-quote {
+        padding: 20px 15px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .story-quote::before {
+        display: none;
+      }
+
+      .story-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .stat-item {
+        padding: 15px;
+        min-width: 100px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .our-story-section {
+        padding: 60px 0;
+      }
+
+      .story-container {
+        gap: 30px;
+      }
+
+      .story-content h2 {
+        font-size: 1.8rem;
+      }
+
+      .stats-container {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .stat-item {
+        width: 100%;
+        max-width: 280px;
+        min-width: 200px;
+        padding: 20px 15px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .story-badge {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      .story-badge i {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .btn-large {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+      }
+
+      .btn-primary {
+        transform: scale(1);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px) scale(1);
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 40px;
+      }
+
+      .stat-item {
+        padding: 15px;
+        margin: 0 auto;
+        max-width: 200px;
+      }
+
+      .stat-number {
+        font-size: 2.2rem;
+      }
+
+      .phone-mockup {
+        width: 280px;
+        height: 560px;
+        margin: 0 auto;
+        /* 移动端布局偏移优化 */
+        contain: layout style paint;
+        will-change: auto;
+        transform: none;
+      }
+
+      .hero-content .badge {
+        font-size: 13px;
+        padding: 8px 16px;
+      }
+    }
+    </style>
+
+    <!-- 关键CSS内联 - 立即渲染 -->
+    <link rel="stylesheet" href="/css/critical.min.css?v=1.2.0">
+
+    <!-- 移动端性能优化CSS -->
+    <style>
+        /* 字体优化 - 防止CLS */
+        @font-face {
+            font-family: 'Inter';
+            font-display: swap;
+            src: local('Inter');
+        }
+
+        /* 可访问性优化 */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #00A3FF;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 10000;
+            font-weight: bold;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* 选择性CLS优化 - 避免过度使用contain */
+        .hero, .phone-mockup, .floating-card {
+            contain: layout style;
+        }
+
+        /* 移动端布局偏移优化 - 强化版 */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 600px !important;
+                contain: layout style paint !important;
+            }
+            .phone-mockup {
+                contain: layout style paint !important;
+                will-change: auto !important;
+                width: 280px !important;
+                height: 560px !important;
+                aspect-ratio: 0.5 !important;
+                transform: translateZ(0) !important;
+            }
+            img {
+                contain: layout paint !important;
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: attr(width) / attr(height) !important;
+            }
+            .floating-card {
+                contain: layout style paint !important;
+                position: absolute !important;
+                transform: translateZ(0) !important;
+            }
+            /* 防止文本重排 */
+            h1, h2, h3, p {
+                contain: layout style !important;
+            }
+        }
+
+        /* 加载器必须立即可用 */
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #0F172A;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        body.loaded #loader-wrapper {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 163, 255, 0.3);
+            border-top: 3px solid #00A3FF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <!-- 内联关键CSS -->
+    <style>
+        /* 关键渲染路径CSS */
+        :root {
+            --primary-color: #00A3FF;
+            --secondary-color: #0081CC;
+            --dark-bg: #0F172A;
+            --light-text: #F8FAFC;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--light-text);
+            line-height: 1.6;
+            background-color: var(--dark-bg);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1E293B 100%);
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 0 60px;
+                /* 移动端布局偏移优化 */
+                min-height: 600px;
+                contain: layout style;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+
+    <!-- 关键CSS已内联，非关键CSS将延迟加载 -->
+    <!-- 移除阻塞渲染的CSS链接 -->
+
+    <!-- CSS 加载验证脚本 -->
+    <script>
+    // 只在需要时验证和修复CSS加载
+    window.addEventListener('load', function() {
+        // 延迟检查，确保所有资源都已加载
+        setTimeout(function() {
+            // 检查关键样式是否正确加载
+            const testElement = document.createElement('div');
+            testElement.className = 'features-grid';
+            testElement.style.visibility = 'hidden';
+            testElement.style.position = 'absolute';
+            document.body.appendChild(testElement);
+
+            const computedStyle = window.getComputedStyle(testElement);
+            const isGridDisplayed = computedStyle.display === 'grid';
+            const hasMaxWidth = computedStyle.maxWidth && computedStyle.maxWidth !== 'none';
+
+            // 如果样式没有正确加载，才进行修复
+            if (!isGridDisplayed || !hasMaxWidth) {
+                console.warn('CSS styles not properly loaded, attempting to fix...');
+
+                // 只有在检测到问题时才重新加载CSS
+                const existingLinks = document.querySelectorAll('link[href*="combined.min.css"]');
+                let needsReload = existingLinks.length === 0;
+
+                if (needsReload) {
+                    const newLink = document.createElement('link');
+                    newLink.rel = 'stylesheet';
+                    newLink.href = '/css/styles.min.css?v=1.2.0&fix=1';
+                    newLink.onload = function() {
+                        console.log('✅ CSS reloaded successfully');
+                    };
+                    document.head.appendChild(newLink);
+                }
+            } else {
+                console.log('✅ CSS styles loaded correctly');
+            }
+
+            document.body.removeChild(testElement);
+        }, 500); // 延迟500ms检查
+    });
+    </script>
+
+    <!-- Cookie同意样式将延迟加载 -->
+
+    <!-- 邮件服务已迁移到 Cloudflare Worker，不再需要 EmailJS -->
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "NaviBatch",
+      "description": "Intelligent Route Planning & Batch Navigation Assistant for delivery drivers, couriers, and logistics companies",
+      "operatingSystem": "iOS",
+      "applicationCategory": "NavigationApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "screenshot": [
+        "https://www.navibatch.com/images/app-screenshot-1.png",
+        "https://www.navibatch.com/images/app-screenshot-2.png"
+      ],
+      "featureList": [
+        "Batch navigation for 20 stops in free version",
+        "Proof of delivery",
+        "Smart photo album system",
+        "One-click batch navigation",
+        "Package finder feature"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "856"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "NaviBatch Inc.",
+        "url": "https://www.navibatch.com"
+      }
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NaviBatch",
+      "url": "https://www.navibatch.com",
+      "logo": "https://www.navibatch.com/images/logo.svg",
+      "sameAs": [
+        "https://twitter.com/navi_batch",
+        "https://www.tiktok.com/@navibatch"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-000-000-0000",
+        "contactType": "customer support",
+        "email": "info@navibatch.com",
+        "availableLanguage": ["English", "Chinese"]
+      }
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is NaviBatch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NaviBatch is an intelligent route planning and batch navigation assistant designed for delivery drivers, couriers, and logistics companies. It optimizes multi-stop routes to save time and fuel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much faster is NaviBatch compared to manual route planning?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NaviBatch is 60x faster than manual route planning. What takes 60 seconds manually can be done in just 1 second with NaviBatch's batch import feature."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is NaviBatch free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, NaviBatch offers a free version with up to 20 stops, route optimization, proof of delivery, and smart photo albums. Pro features are available through in-app purchase."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What platforms does NaviBatch support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NaviBatch is currently available exclusively for iOS devices, optimized specifically for iPhone users in the delivery and logistics industry."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much fuel can I save with NaviBatch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NaviBatch's route optimization can help you save up to 30% on fuel costs by calculating the most efficient routes and reducing unnecessary driving distance."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.navibatch.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Features",
+          "item": "https://www.navibatch.com/#features"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Pricing",
+          "item": "https://www.navibatch.com/#pricing"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Download",
+          "item": "https://www.navibatch.com/#download"
+        }
+      ]
+    }
+    </script>
+
+</head>
+<body>
+    <!-- 可访问性：跳转链接 -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- 页面加载指示器 -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    </div>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <div class="logo-container">
+                        <svg width="150" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                            <text x="5" y="28" font-family="Arial, sans-serif" font-weight="700" font-size="24" fill="#00A3FF">NaviBatch</text>
+                            <path d="M180 10 L190 20 L180 30" stroke="#00A3FF" stroke-width="3" fill="none"/>
+                            <path d="M170 20 H187" stroke="#00A3FF" stroke-width="3"/>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How it Works</a></li>
+                    <li><a href="#comparison">Comparison</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#download">Download</a></li>
+                </ul>
+            </nav>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-secondary">Contact Us</a>
+                <a href="https://apps.apple.com/app/id6746371287" class="btn btn-primary btn-download" target="_blank" rel="noopener">Download</a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="badge">🚀 MOST POPULAR ROUTE OPTIMIZATION APP</span>
+                    <h1 class="main-title">60x Faster Route Planning for</h1>
+                    <h1 class="sub-title"><span class="highlight">Delivery Professionals</span></h1>
+                    <p class="hero-subtitle">Save up to 60% time and 30% fuel costs with our AI-powered multi-stop navigation and batch route optimization. The fastest delivery route planning app for drivers, couriers, and logistics companies.</p>
+                    <div class="hero-cta">
+                        <a href="https://apps.apple.com/app/id6746371287" class="btn btn-large btn-primary" target="_blank" rel="noopener">
+                            <i class="fab fa-apple"></i> Download on App Store
+                        </a>
+                        <a href="#how-it-works" class="btn btn-large btn-outline">
+                            <i class="fas fa-play-circle"></i> Watch Demo
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">60x</div>
+                            <div class="stat-label">Faster Planning</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Customer Satisfaction</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50k+</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image-container">
+                    <div class="phone-mockup">
+                        <div class="phone-notch"></div>
+                        <!-- 强制缓存破坏的图片显示 -->
+                        <div class="phone-screen-container">
+                            <img id="hero-image"
+                                 alt="NaviBatch App Interface"
+                                 class="phone-screen"
+                                 width="280"
+                                 height="600"
+                                 onload="this.style.opacity='1'; console.log('✅ Hero image loaded successfully');"
+                                 onerror="console.log('❌ Hero image failed to load'); showHeroFallback();"
+                                 style="opacity: 0; transition: opacity 0.5s ease; width: 280px; height: 600px; object-fit: cover; object-position: top center; contain: layout paint; will-change: opacity;">
+
+                            <!-- 回退界面 -->
+                            <div id="hero-fallback" class="hero-fallback" style="display: none;">
+                                <div class="fallback-content">
+                                    <div class="app-icon">📱</div>
+                                    <div class="app-name">NaviBatch</div>
+                                    <div class="app-desc">Route Planning App</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 优化的移动端图片加载脚本 -->
+                        <script>
+                        (function() {
+                            const img = document.getElementById('hero-image');
+                            if (!img) return;
+
+                            // 检查是否使用懒加载
+                            const useLazyLoading = sessionStorage.getItem('useLazyLoading') === 'true';
+
+                            function loadHeroImage() {
+                                // 检测WebP支持和预加载状态
+                                const preloadedFormat = sessionStorage.getItem('heroImagePreloaded');
+                                let imageUrl;
+
+                                const isMobile = window.innerWidth <= 768;
+
+                                if (preloadedFormat === 'mobile-webp') {
+                                    imageUrl = '/images/hero-screenshot-mobile.webp';
+                                } else if (preloadedFormat === 'webp') {
+                                    imageUrl = '/images/hero-screenshot-hq.webp';
+                                } else if (preloadedFormat === 'png') {
+                                    imageUrl = '/images/hero-screenshot.png';
+                                } else {
+                                    // 动态检测WebP支持和设备类型
+                                    const canvas = document.createElement('canvas');
+                                    canvas.width = 1;
+                                    canvas.height = 1;
+                                    const supportsWebP = canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+
+                                    if (isMobile) {
+                                        imageUrl = supportsWebP ? '/images/hero-screenshot-mobile.webp' : '/images/hero-screenshot.png';
+                                    } else {
+                                        imageUrl = supportsWebP ? '/images/hero-screenshot-hq.webp' : '/images/hero-screenshot.png';
+                                    }
+                                }
+
+                                console.log('🔄 Loading hero image:', imageUrl);
+
+                                // 使用requestIdleCallback优化加载时机
+                                const loadImage = () => {
+                                    img.src = imageUrl;
+
+                                    // 移动端大幅减少超时时间，使用更小的图片
+                                    const timeoutDuration = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 2000 : 5000;
+
+                                    setTimeout(() => {
+                                        if (img.style.opacity === '0') {
+                                            console.log('⏰ Image load timeout, showing fallback');
+                                            showHeroFallback();
+                                        }
+                                    }, timeoutDuration);
+                                };
+
+                                if (window.requestIdleCallback) {
+                                    requestIdleCallback(loadImage, { timeout: 1000 });
+                                } else {
+                                    setTimeout(loadImage, 50);
+                                }
+                            }
+
+                            if (useLazyLoading && 'IntersectionObserver' in window) {
+                                // 使用Intersection Observer实现懒加载
+                                const observer = new IntersectionObserver((entries) => {
+                                    entries.forEach(entry => {
+                                        if (entry.isIntersecting) {
+                                            loadHeroImage();
+                                            observer.unobserve(entry.target);
+                                        }
+                                    });
+                                }, {
+                                    rootMargin: '50px 0px',
+                                    threshold: 0.1
+                                });
+
+                                observer.observe(img);
+                                console.log('👁️ Using Intersection Observer for lazy loading');
+                            } else {
+                                // 立即加载（桌面端或不支持懒加载）
+                                if (document.readyState === 'loading') {
+                                    document.addEventListener('DOMContentLoaded', loadHeroImage);
+                                } else {
+                                    loadHeroImage();
+                                }
+                            }
+                        })();
+
+                        function showHeroFallback() {
+                            const img = document.getElementById('hero-image');
+                            const fallback = document.getElementById('hero-fallback');
+                            if (img && fallback) {
+                                img.style.display = 'none';
+                                fallback.style.display = 'flex';
+                                console.log('🎭 Showing hero fallback interface');
+                            }
+                        }
+                        </script>
+                    </div>
+                    <div class="floating-card card-1" style="background-color: white !important; color: #333 !important; opacity: 1 !important; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important; z-index: 1000 !important;">
+                        <i class="fas fa-check-circle" style="color: #00a3ff;" aria-hidden="true"></i>
+                        <span>Route Optimized</span>
+                    </div>
+                    <div class="floating-card card-2" style="background-color: white !important; color: #333 !important; opacity: 1 !important; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important; z-index: 1000 !important;">
+                        <i class="fas fa-bolt" style="color: #00a3ff;" aria-hidden="true"></i>
+                        <span>60% Time Saved</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 25.9146C277 84.203 433 65.774 720 25.9146C934.818 -3.90189 1214 -13.722 1440 25.9146V74H0V25.9146Z" fill="currentColor"/>
+            </svg>
+        </div>
+    </section>
+
+    <section id="features" class="solution-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key Features</h2>
+                <p>NaviBatch offers powerful features to optimize your route planning and navigation experience</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card highlight-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Advanced Route Optimization</h3>
+                    <p>Automatically create the most efficient route for multiple stops with <strong>industry-leading algorithms</strong>, saving up to 30% on time and fuel. Handles complex routes with <strong>unlimited waypoints</strong>.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Turn-by-Turn Navigation</h3>
+                    <p>Get clear voice-guided directions with real-time traffic updates to each stop on your route.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-import"></i>
+                    </div>
+                    <h3>Bulk Address Import</h3>
+                    <p>Import addresses from spreadsheets, email, or clipboard to quickly create routes with dozens of stops.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search-location"></i>
+                    </div>
+                    <h3>Package Finder</h3>
+                    <p>Quickly locate specific packages in your vehicle with our smart search feature, saving valuable time at each stop.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Time Window Planning</h3>
+                    <p>Set specific delivery or arrival time windows for each stop and optimize routes accordingly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-list-ol"></i>
+                    </div>
+                    <h3>Delivery Sequencing</h3>
+                    <p>Manually adjust the order of stops when needed or lock priority destinations in place.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Multi-Factor Route Planning</h3>
+                    <p>Our routes consider traffic patterns, road types, distance, delivery windows, and vehicle limitations for truly optimized delivery paths.</p>
+                </div>
+                <div class="feature-card highlight-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Proof of Delivery</h3>
+                    <p>Capture door numbers, package labels, and placement photos for delivery proof and dispute reduction. <strong>Available in the free version!</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="for-business" class="solution-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Designed for Delivery Drivers & Logistics Companies</h2>
+                <p>Save hours every day, increase delivery efficiency, and focus on what matters most.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Intelligent Route Optimization</h3>
+                    <p>Automatically calculate the best routes to minimize driving distance and time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Batch Address Processing</h3>
+                    <p>Import multiple addresses at once without repetitive manual entry.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>One-Click Navigation <span class="patent-badge-small">PATENT PENDING</span></h3>
+                    <p>After planning, start guided navigation to all stops with a single tap.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>ETA Estimation</h3>
+                    <p>Accurately predict arrival times to plan your work schedule effectively.</p>
+                </div>
+            </div>
+            <div class="cta-center">
+                <a href="https://apps.apple.com/app/id6746371287" class="btn btn-primary" target="_blank" rel="noopener">Download Now</a>
+            </div>
+            <div class="social-proof be-first">
+                <p class="social-proof-text">We're just getting started!</p>
+                <div class="early-adopter">
+                    <span class="early-adopter-badge"><i class="fas fa-award"></i> Early Adopter</span>
+                    <h3>Be the first to review NaviBatch</h3>
+                    <p>Download today and help shape the future of route planning</p>
+                    <div class="empty-stars">
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="for-individual" class="solution-section bg-light" aria-labelledby="individual-heading">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="individual-heading">Multi-Stop Navigation Tool for Individuals</h2>
+                <p>Whether it's daily multi-location trips or weekend itineraries, NaviBatch helps you reach every destination more easily.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Intuitive Interface</h3>
+                    <p>Add multiple locations in seconds with a simple, easy-to-learn interface.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Flexible Route Settings</h3>
+                    <p>Choose to avoid highways and toll roads to match your travel preferences.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-import"></i>
+                    </div>
+                    <h3>Multiple Import Methods</h3>
+                    <p>Support for voice, file import, and batch paste for address input.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                    <h3>Save & Share Routes</h3>
+                    <p>Save frequent routes and share them with family and friends with one tap.</p>
+                </div>
+            </div>
+            <div class="social-proof pioneer-section">
+                <div class="pioneer-header">
+                    <div class="pioneer-header-content">
+                        <p class="social-proof-text">Join our growing community</p>
+                        <div class="download-cta-container">
+                            <a href="https://apps.apple.com/app/id6746371287" class="btn btn-primary download-btn" target="_blank" rel="noopener">
+                                <i class="fab fa-apple"></i> Download App
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pioneer-badge">
+                    <div class="pioneer-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="pioneer-text">
+                        <h3>Be a NaviBatch Pioneer</h3>
+                        <p>Your feedback will help us improve and grow</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comparison" class="solution-section bg-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2>Traditional Method vs NaviBatch Pro</h2>
+                <p>With NaviBatch, route planning is <strong class="accent-text">60x faster</strong>, making every day more efficient</p>
+            </div>
+
+            <div class="comparison-container">
+                <!-- Traditional Method Card -->
+                <div class="comparison-card traditional">
+                    <div class="comparison-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Traditional Method</h3>
+                    </div>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-clock"></i> Each address takes 3-5 seconds</li>
+                        <li><i class="fas fa-sync"></i> Need to repeat same operation 14 times</li>
+                        <li><i class="fas fa-random"></i> Navigation order often mixed up</li>
+                        <li><i class="fas fa-exclamation-circle"></i> Prone to errors, requires redoing</li>
+                        <li><i class="fas fa-sort-amount-down"></i> Address order reversed, needs manual adjustment</li>
+                    </ul>
+                    <div class="comparison-time">
+                        <strong>Total Time: 60 seconds</strong>
+                    </div>
+                </div>
+
+                <div class="vs-badge">VS</div>
+
+                <!-- NaviBatch Pro Card -->
+                <div class="comparison-card navibatch">
+                    <div class="comparison-header">
+                        <i class="fas fa-bolt"></i>
+                        <h3>NaviBatch Pro</h3>
+                    </div>
+                    <ul class="comparison-list">
+                        <li><i class="fas fa-bolt"></i> One click, all addresses imported in batch</li>
+                        <li><i class="fas fa-magic"></i> Smart grouping, automatic sequencing</li>
+                        <li><i class="fas fa-check-circle"></i> Maintains correct visit order</li>
+                        <li><i class="fas fa-thumbs-up"></i> Zero errors, zero repetition</li>
+                        <li class="highlight-item"><i class="fas fa-bolt"></i> <strong>60x faster speed</strong> <span class="blink-tag">GAME CHANGER</span></li>
+                    </ul>
+                    <div class="comparison-time highlight">
+                        <strong>Total Time: 1 second</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-saved-badge">
+                <i class="fas fa-clock"></i> Save hours of time every day!
+            </div>
+
+            <div class="shocking-truth">
+                <h3>Imagine the pain: 280 addresses</h3>
+                <p>Traditional method: <strong>20 minutes</strong> of repetitive manual entry</p>
+                <p>NaviBatch: <strong>Just 20 seconds</strong> to import and navigate automatically</p>
+                <div class="shocking-badge">That's 60x faster with NaviBatch!</div>
+            </div>
+
+            <!-- Added Animated Progress Bar Comparison -->
+            <div class="progress-comparison">
+                <div class="progress-group traditional">
+                    <div class="progress-label">Traditional Method</div>
+                    <div class="progress-container">
+                        <div class="progress-bar traditional-bar" style="width: 100%"></div>
+                    </div>
+                    <div class="progress-time">60 seconds</div>
+                </div>
+
+                <div class="progress-group navibatch">
+                    <div class="progress-label">NaviBatch Pro</div>
+                    <div class="progress-container">
+                        <div class="progress-bar navibatch-bar" style="width: 1.67%"></div>
+                    </div>
+                    <div class="progress-time">1 second</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 添加竞品对比部分 -->
+    <section id="competitor-comparison" class="competitor-section">
+        <div class="container">
+            <div class="competitor-header">
+                <h2>NaviBatch Totally Crushes the Competition</h2>
+                <p>Compared to other route planning apps? Not even close! NaviBatch packs more features, way better efficiency, and gives you premium stuff for FREE that others make you pay for. Yeah, we said it!</p>
+            </div>
+
+            <div class="competitor-grid">
+                <!-- 竞品 A 卡片 -->
+                <div class="competitor-card">
+                    <div class="competitor-logo">
+                        <h3>Competitor A</h3>
+                    </div>
+                    <div class="competitor-price">
+                        <strong>$13.99</strong>/month or <strong>$109.99</strong>/year
+                    </div>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-times"></i> No proof of delivery in free version</li>
+                        <li><i class="fas fa-times"></i> Free version limited to 15 stops</li>
+                        <li><i class="fas fa-times"></i> No batch navigation feature</li>
+                        <li><i class="fas fa-times"></i> Clunky interface, super slow workflow</li>
+                        <li><i class="fas fa-times"></i> No package finder feature</li>
+                    </ul>
+                </div>
+
+                <!-- Competitor B Card -->
+                <div class="competitor-card">
+                    <div class="competitor-logo">
+                        <h3>Competitor B</h3>
+                    </div>
+                    <div class="competitor-price">
+                        <strong>$10</strong>/month - <strong>$20</strong>/month
+                    </div>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-times"></i> Free version capped at only 10 stops</li>
+                        <li><i class="fas fa-times"></i> Can't add stops via camera in free version</li>
+                        <li><i class="fas fa-times"></i> No arrival time windows in free version</li>
+                        <li><i class="fas fa-check"></i> Package finder (paid version only)</li>
+                        <li><i class="fas fa-times"></i> No batch route optimization</li>
+                    </ul>
+                </div>
+
+                <!-- NaviBatch Card -->
+                <div class="competitor-card navibatch">
+                    <div class="competitor-logo">
+                        <h3 class="competitor-name navibatch">NaviBatch</h3>
+                    </div>
+                    <div class="competitor-price">
+                        <strong>Free version</strong> rocks, <strong>Pro version</strong> is next level
+                    </div>
+                    <ul class="feature-list navibatch">
+                        <li class="highlight"><i class="fas fa-star"></i> <strong>Free version with 20 stops + way more features</strong></li>
+                        <li class="highlight"><i class="fas fa-star"></i> <strong>Proof of delivery included FREE</strong> <span class="exclusive-badge">EXCLUSIVE</span></li>
+                        <li class="highlight"><i class="fas fa-star"></i> <strong>Smart Photo Album System, Auto-categorized by Route</strong> <span class="exclusive-badge">EXCLUSIVE</span></li>
+                        <li class="highlight"><i class="fas fa-star"></i> <strong>One-click batch navigation, 60x faster</strong> <span class="exclusive-badge">EXCLUSIVE</span> <span class="patent-badge">PATENT PENDING</span></li>
+                        <li class="highlight"><i class="fas fa-star"></i> <strong>Pro package finder feature</strong></li>
+                        <li class="highlight"><i class="fas fa-star"></i> <strong>iPhone-optimized pro interface</strong></li>
+                    </ul>
+                    <div class="winner-badge">Best Choice, No Contest 🏆</div>
+                </div>
+            </div>
+
+            <div class="competitor-table">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Key Features</th>
+                            <th>Competitor</th>
+                            <th>NaviBatch</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Free Version Stops</td>
+                            <td>Max 15</td>
+                            <td class="best">20 stops + better features</td>
+                        </tr>
+                        <tr>
+                            <td>Delivery Photo Proof</td>
+                            <td>Paid version only</td>
+                            <td class="best">Included in FREE version!</td>
+                        </tr>
+                        <tr>
+                            <td>Batch Navigation Speed</td>
+                            <td>Standard</td>
+                            <td class="best">60x faster! <span class="patent-badge-small">PATENT PENDING</span></td>
+                        </tr>
+                        <tr>
+                            <td>Package Finder</td>
+                            <td>Not available</td>
+                            <td class="best">Fully supported</td>
+                        </tr>
+                        <tr>
+                            <td>Delivery Industry Focus</td>
+                            <td>Partially optimized</td>
+                            <td class="best">Totally delivery focused</td>
+                        </tr>
+                        <tr>
+                            <td>Photo Management System</td>
+                            <td>Disorganized storage</td>
+                            <td class="best">Smart Albums, Auto-categorized!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cta-row">
+                <a href="https://apps.apple.com/app/id6746371287" class="btn btn-primary" target="_blank" rel="noopener">Download Now & See The Difference!</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="our-story" class="our-story-section">
+        <div class="story-container">
+            <div class="story-image-wrapper">
+                <div class="story-badge">
+                    <i class="fas fa-truck"></i>
+                    <span>Real Delivery Experience</span>
+                </div>
+                <!-- 图片部分已移除 -->
+            </div>
+            <div class="story-content">
+                <h2>Built by Delivery Drivers, For Delivery Drivers</h2>
+                <div class="story-highlight">
+                    <i class="fas fa-star"></i>
+                    <span>We personally delivered 200+ packages daily for 3 months before creating NaviBatch</span>
+                </div>
+
+                <p>Most route planning apps are created by developers who've never delivered a single package. NaviBatch is different.</p>
+
+                <div class="story-quote clean-quote">
+                    "Before writing a single line of code, our entire team spent 3 months delivering packages ourselves - 200+ packages daily. We experienced every challenge firsthand: confusing addresses, time pressure, package sorting nightmares, and the frustration of manually entering addresses one by one."
+                </div>
+
+                <p>This real-world experience changed everything. We didn't build NaviBatch based on theory - we built it to solve the actual problems we faced on the road every day.</p>
+
+                <p>Every feature in NaviBatch comes from a real delivery pain point we personally experienced. That's why delivery professionals love our app - because it was truly built <strong>by drivers, for drivers</strong>.</p>
+
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-number">200<span class="plus-sign">+</span></div>
+                        <div class="stat-label">Daily Packages Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Months on the Road</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">18,000<span class="plus-sign">+</span></div>
+                        <div class="stat-label">Total Packages Delivered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="solution-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Three Easy Steps to Route Planning and Navigation</h2>
+                <p>NaviBatch makes complex multi-stop navigation simple and intuitive, no technical skills required.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Add Addresses</h3>
+                    <p>Add multiple destinations by typing, importing files, or using voice recognition</p>
+                    <div class="step-icon-container">
+                        <i class="fas fa-map-marked-alt step-icon"></i>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Optimize Route</h3>
+                    <p>Optimize the visit order of all locations with one click to save time and fuel</p>
+                    <div class="step-icon-container">
+                        <i class="fas fa-route step-icon"></i>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Start Navigation</h3>
+                    <p>Press the navigation button to automatically travel to each destination in sequence</p>
+                    <div class="step-icon-container">
+                        <i class="fas fa-location-arrow step-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-center">
+                <a href="#demo-video" class="btn btn-secondary">Watch Demo Video</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="photo-verification" class="solution-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Proof of Delivery</h2>
+                <p>A powerful delivery proof system available even in the free version</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Door Number Photo</h3>
+                    <p>Capture clear images of door numbers, ensuring digits/letters are visible</p>
+                    <div class="step-icon-container">
+                        <i class="fas fa-door-open step-icon"></i>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Package Label Photo</h3>
+                    <p>Photograph package labels to ensure recipient information is clearly visible</p>
+                    <div class="step-icon-container">
+                        <i class="fas fa-tag step-icon"></i>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Placement Photo</h3>
+                    <p>Capture the final placement of packages, providing complete delivery proof</p>
+                    <div class="step-icon-container">
+                        <i class="fas fa-cube step-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-benefits">
+                <h3>Benefits of Proof of Delivery</h3>
+                <ul class="benefits-list">
+                    <li><i class="fas fa-check-circle"></i> Reduces "package not received" complaints by 80%</li>
+                    <li><i class="fas fa-check-circle"></i> Provides legal protection for delivery personnel</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Smart Photo Album System</strong> - Photos auto-organized by route name + date</li>
+                    <li><i class="fas fa-check-circle"></i> Easily manage 600-900 photos from 200-300 packages daily</li>
+                    <li><i class="fas fa-check-circle"></i> Find or delete specific photos weeks or months later with ease</li>
+                    <li><i class="fas fa-check-circle"></i> Uses structured workflow to ensure complete documentation</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Complete photo functionality in the free version</strong></li>
+                </ul>
+                <div class="user-testimonial">
+                    <blockquote>"Since using NaviBatch's proof of delivery feature, our 'package not received' complaints have decreased by 80%. Customers can clearly see the package has been delivered, and we have complete records as proof."</blockquote>
+                    <p class="testimonial-author">— Delivery Company Manager</p>
+                </div>
+            </div>
+
+            <div class="cta-center">
+                <a href="https://apps.apple.com/app/id6746371287" class="btn btn-secondary" target="_blank" rel="noopener">Download Free & Start Taking Photos</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="case-studies" class="case-studies">
+        <div class="container">
+            <div class="section-header">
+                <h2>Success Stories</h2>
+                <p>Real results from delivery professionals using NaviBatch</p>
+            </div>
+            <div class="case-studies-grid">
+                <div class="case-study-card">
+                    <div class="case-study-content">
+                        <h3>This delivery company saves 2 hours of route planning time every day with NaviBatch</h3>
+                        <a href="#" class="read-more" data-case-study="1">Read Case Study</a>
+                    </div>
+                </div>
+                <div class="case-study-card">
+                    <div class="case-study-content">
+                        <h3>This courier increased daily deliveries by 30% using NaviBatch</h3>
+                        <a href="#" class="read-more" data-case-study="2">Read Case Study</a>
+                    </div>
+                </div>
+                <div class="case-study-card">
+                    <div class="case-study-content">
+                        <h3>This logistics company saves 15% on fuel costs every month</h3>
+                        <a href="#" class="read-more" data-case-study="3">Read Case Study</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pricing</h2>
+                <p>Download the app for free and unlock premium features with in-app purchases</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Free</h3>
+                        <div class="price">$0</div>
+                        <p>Download from App Store</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Route Optimization</li>
+                        <li><i class="fas fa-check"></i> Unlimited Routes</li>
+                        <li><i class="fas fa-check"></i> Unlimited Optimizations</li>
+                        <li><i class="fas fa-check"></i> Max 20 Addresses</li>
+                        <li><i class="fas fa-check"></i> Save Fuel by 30%</li>
+                        <li><i class="fas fa-check highlight-feature"></i> <strong>File Import</strong> <span class="feature-badge">NEW</span></li>
+                        <li><i class="fas fa-check highlight-feature"></i> <strong>Batch Address Paste</strong></li>
+                        <li><i class="fas fa-check highlight-feature"></i> <strong>Online Address Download</strong></li>
+                        <li><i class="fas fa-check highlight-feature"></i> <strong>Proof of Delivery</strong></li>
+                        <li><i class="fas fa-check highlight-feature"></i> <strong>Smart Photo Albums</strong> <span class="feature-badge">NEW</span></li>
+                        <li><i class="fas fa-times"></i> <strong>One-Click Batch Navigation</strong> <span class="patent-badge-small">PATENT PENDING</span></li>
+                        <li><i class="fas fa-times"></i> Package Finder</li>
+                    </ul>
+                    <a href="#download" class="btn btn-outline-primary">Download Free</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-tag">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Pro</h3>
+                        <div class="price">$29.99<span>/month</span></div>
+                        <p>In-app Purchase</p>
+                        <div class="free-trial"><i class="fas fa-gift"></i> Free 14-Day Trial</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Route Optimization</li>
+                        <li><i class="fas fa-check"></i> Unlimited Routes</li>
+                        <li><i class="fas fa-check"></i> Unlimited Optimizations</li>
+                        <li><i class="fas fa-check"></i> <strong>Unlimited Addresses</strong></li>
+                        <li><i class="fas fa-check"></i> Save Fuel by 30%</li>
+                        <li><i class="fas fa-check"></i> <strong>File Import</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Batch Address Paste</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Online Address Download</strong></li>
+                        <li><i class="fas fa-check highlight-feature"></i> <strong>Proof of Delivery</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Smart Photo Albums</strong></li>
+                        <li><i class="fas fa-check highlight-feature"></i> <strong>One-Click Batch Navigation</strong> <span class="speed-badge">60x faster!</span> <span class="patent-badge-small">PATENT PENDING</span></li>
+                        <li><i class="fas fa-check"></i> <strong>Package Finder</strong></li>
+                    </ul>
+                    <a href="https://apps.apple.com/app/id6746371287" class="btn btn-primary" target="_blank" rel="noopener">Download App</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Expert</h3>
+                        <div class="price">$249.99<span>/year</span></div>
+                        <p>In-app Purchase</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> All Pro Features</li>
+                        <li><i class="fas fa-check"></i> Unlimited Routes</li>
+                        <li><i class="fas fa-check"></i> Unlimited Optimizations</li>
+                        <li><i class="fas fa-check"></i> Unlimited Addresses</li>
+                        <li><i class="fas fa-check"></i> Save Fuel by 30%</li>
+                        <li><i class="fas fa-check"></i> File Import</li>
+                        <li><i class="fas fa-check"></i> Batch Address Paste</li>
+                        <li><i class="fas fa-check"></i> Online Address Download</li>
+                        <li><i class="fas fa-check"></i> Proof of Delivery</li>
+                        <li><i class="fas fa-check"></i> Smart Photo Albums</li>
+                        <li><i class="fas fa-check"></i> <strong>One-Click Batch Navigation</strong> <span class="patent-badge-small">PATENT PENDING</span></li>
+                        <li><i class="fas fa-check"></i> Package Finder</li>
+                        <li><i class="fas fa-check highlight-feature"></i> <strong>Annual Savings of 30%</strong></li>
+                    </ul>
+                    <a href="#download" class="btn btn-outline-primary">Download App</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="download-section ios-exclusive">
+        <div class="container">
+            <div class="section-header">
+                <h2>Download NaviBatch Today</h2>
+                <p><span class="ios-exclusive-badge"><i class="fas fa-apple-alt"></i> iPhone Exclusive</span> Optimized for professional delivery</p>
+            </div>
+            <div class="ios-advantages">
+                <div class="ios-advantage-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Batch Navigation <span class="patent-badge-small">PATENT PENDING</span></h3>
+                    <p>One-click optimization for up to 60 addresses, saving time</p>
+                </div>
+                <div class="ios-advantage-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Proof of Delivery</h3>
+                    <p>Built-in photo capture and verification for proof of delivery</p>
+                </div>
+                <div class="ios-advantage-item">
+                    <i class="fas fa-magic"></i>
+                    <h3>Delivery Optimized</h3>
+                    <p>Specially designed navigation experience for delivery professionals</p>
+                </div>
+            </div>
+            <div class="ios-download-container">
+                <a href="https://apps.apple.com/app/id6746371287" class="ios-app-store-button" target="_blank" rel="noopener">
+                    <img src="/images/App store badge 2022.webp" alt="Download on the App Store" width="135" height="40" loading="lazy" decoding="async">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="solution-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Have questions or need support? Our team is here to help you</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p><strong>General Inquiries:</strong> info@navibatch.com<br>
+                            <strong>Technical Support:</strong> supports@navibatch.com</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="contact-form">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event); return false;">
+
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inquiry-type">Inquiry Type</label>
+                            <select id="inquiry-type" name="inquiry-type" required onchange="toggleImageUpload()">
+                                <option value="" disabled selected>Please select an option</option>
+                                <option value="general">General Information</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="custom">Custom Requirements</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Optional subject">
+                        </div>
+                        <!-- 图片上传区域 - 仅在选择技术支持时显示 -->
+                        <div class="form-group" id="image-upload-group" style="display: none;">
+                            <label for="image-upload">Upload Screenshots (Optional)</label>
+                            <div class="image-upload-container">
+                                <input type="file" id="image-upload" name="images" multiple accept="image/*" onchange="handleImageUpload(event)">
+                                <div class="upload-area" onclick="document.getElementById('image-upload').click()">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="upload-text">
+                                        <p><strong>Click to upload</strong> or drag and drop</p>
+                                        <p class="upload-hint">PNG, JPG, GIF up to 10MB each (Max 3 files)</p>
+                                        <p class="upload-note">📧 Images will be compressed for email. Full resolution available upon request.</p>
+                                    </div>
+                                </div>
+                                <div id="image-preview" class="image-preview-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section for SEO -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about NaviBatch route planning app</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <h3>What makes NaviBatch 60x faster than traditional route planning?</h3>
+                    <p>NaviBatch uses AI-powered batch navigation technology to import and optimize multiple addresses instantly. While traditional methods require manually entering each address (3-5 seconds each), NaviBatch can process unlimited addresses in just 1 second with our patent-pending one-click batch navigation system.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is NaviBatch really free for delivery drivers?</h3>
+                    <p>Yes! NaviBatch offers a comprehensive free version with up to 20 stops, proof of delivery photos, smart photo albums, and route optimization. This makes it the best free route planning app for delivery drivers, couriers, and small logistics operations.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How much fuel can I save with NaviBatch route optimization?</h3>
+                    <p>NaviBatch's AI-powered route optimization typically saves 30% on fuel costs by eliminating unnecessary backtracking and creating the most efficient delivery routes. Our multi-factor route planning considers traffic patterns, distance, and delivery windows for maximum fuel efficiency.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Does NaviBatch work for multi-stop navigation with unlimited addresses?</h3>
+                    <p>The free version supports up to 20 stops, while NaviBatch Pro offers unlimited addresses for large-scale delivery operations. Our advanced route optimization handles complex multi-stop navigation with time windows, priority deliveries, and vehicle capacity constraints.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What's included in NaviBatch's proof of delivery feature?</h3>
+                    <p>NaviBatch includes comprehensive proof of delivery in the free version - capture door numbers, package labels, and placement photos. Our smart photo album system automatically organizes photos by route and date, making it easy to manage hundreds of delivery photos daily.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How does NaviBatch compare to other delivery route planning apps?</h3>
+                    <p>NaviBatch offers more features in the free version than competitors charge for. While apps like Circuit and Route4Me limit free users to 10-15 stops, NaviBatch provides 20 stops plus proof of delivery, smart photo albums, and our exclusive 60x faster batch navigation technology.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to boost your route planning efficiency?</h2>
+                <p>Download NaviBatch now, save time and fuel, and increase your work efficiency</p>
+                <a href="#download" class="btn btn-large btn-primary" aria-label="免费下载App">Download Free</a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-column footer-brand">
+                        <div class="footer-logo">
+                            <img src="/images/logo.svg" alt="NaviBatch - 智能路线规划与批量导航助手" width="150" height="50" loading="lazy" decoding="async" onerror="this.outerHTML='<div style=\'color:#00A3FF;font-size:24px;font-weight:bold;line-height:50px;\'>NaviBatch</div>'">
+                        </div>
+                        <p class="footer-tagline">Intelligent Route Planning & Batch Navigation Assistant</p>
+                        <div class="footer-description">
+                            <p>NaviBatch provides professional route planning and batch navigation solutions for delivery drivers, couriers, and logistics companies.</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://twitter.com/navi_batch" target="_blank" rel="noopener noreferrer" aria-label="Follow NaviBatch on X (Twitter)" class="social-icon"><i class="fab fa-x" aria-hidden="true"></i></a>
+                            <a href="https://www.tiktok.com/@navibatch" target="_blank" rel="noopener noreferrer" aria-label="Follow NaviBatch on TikTok" class="social-icon"><i class="fab fa-tiktok" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">Product</h3>
+                        <ul class="footer-links">
+                            <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                            <li><a href="#how-it-works"><i class="fas fa-chevron-right"></i> How It Works</a></li>
+                            <li><a href="#pricing"><i class="fas fa-chevron-right"></i> Pricing</a></li>
+                            <li><a href="#download"><i class="fas fa-chevron-right"></i> Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">Company</h3>
+                        <ul class="footer-links">
+                            <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                            <li><a href="#our-story"><i class="fas fa-chevron-right"></i> Our Story</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3 class="footer-heading">Legal</h3>
+                        <ul class="footer-links">
+                            <li><a href="/terms.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                            <li><a href="/privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        </ul>
+                        <div class="app-store-badge">
+                            <a href="https://apps.apple.com/app/id6746371287" target="_blank" rel="noopener">
+                                <img src="/images/App store badge 2022.webp" alt="从App Store下载NaviBatch导航应用" width="120" height="40" loading="lazy" decoding="async" onerror="this.outerHTML='<div style=\'background:#000;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;text-align:center;\'>Download on App Store</div>'">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p class="copyright">&copy; 2025 NaviBatch. All rights reserved. | One-click multi-point navigation technology is patent pending (US Application No. 63/812,246). | <a href="/privacy.html" style="color: #00A3FF; text-decoration: none;">Privacy Policy</a></p>
+                    <div class="back-to-top">
+                        <a href="#" id="back-to-top-btn" aria-label="Back to top"><i class="fas fa-chevron-up"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Case Study Modals -->
+    <div id="case-study-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modal-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开发环境控制台清理器 -->
+    <script>
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            const script = document.createElement('script');
+            script.src = '/js/console-cleaner.js';
+            document.head.appendChild(script);
+        }
+    </script>
+
+    <!-- 延迟加载非关键CSS -->
+    <script>
+    (function() {
+        // 延迟加载完整样式表
+        const loadCSS = function(href) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            link.media = 'print';
+            link.onload = function() {
+                this.media = 'all';
+            };
+            document.head.appendChild(link);
+        };
+
+        // 页面加载完成后加载非关键CSS
+        window.addEventListener('load', function() {
+            loadCSS('/css/combined.min.css?v=2.0.0');
+            loadCSS('/css/styles.css?v=2.0.0');
+            loadCSS('/css/comparison.css?v=2.0.0');
+            loadCSS('/css/competitor-comparison.css?v=2.0.0');
+            loadCSS('/css/fontawesome-local.min.css?v=1.0.0');
+            loadCSS('/css/cookie-consent.css?v=1.0.0');
+        });
+    })();
+    </script>
+
+    <!-- 缓存清除和版本检测 -->
+    <script>
+    (function() {
+        // 版本检测和强制缓存清除
+        const CURRENT_VERSION = '2.4.0-new-favicon';
+        const VERSION_KEY = 'navibatch_version';
+        const LAST_CHECK_KEY = 'navibatch_last_check';
+
+        function clearAllCaches() {
+            console.log('🧹 Clearing all caches...');
+
+            // 清除Service Worker缓存
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => {
+                        console.log('🗑️ Deleting cache:', name);
+                        caches.delete(name);
+                    });
+                });
+            }
+
+            // 清除localStorage中的版本信息
+            try {
+                localStorage.removeItem(VERSION_KEY);
+                localStorage.removeItem(LAST_CHECK_KEY);
+                localStorage.removeItem('userLocation');
+            } catch (e) {
+                console.log('LocalStorage clear failed:', e);
+            }
+
+            // 清除sessionStorage
+            try {
+                sessionStorage.clear();
+            } catch (e) {
+                console.log('SessionStorage clear failed:', e);
+            }
+        }
+
+        function checkAndUpdateVersion() {
+            try {
+                const storedVersion = localStorage.getItem(VERSION_KEY);
+                const now = Date.now();
+
+                if (storedVersion !== CURRENT_VERSION) {
+                    console.log('🔄 Version changed from', storedVersion, 'to', CURRENT_VERSION);
+                    clearAllCaches();
+                    localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+                    localStorage.setItem(LAST_CHECK_KEY, now.toString());
+                    return true;
+                }
+
+                // 更新最后检查时间
+                localStorage.setItem(LAST_CHECK_KEY, now.toString());
+                return false;
+            } catch (e) {
+                console.log('Version check failed:', e);
+                return false;
+            }
+        }
+
+        // 检查URL参数是否要求强制刷新
+        function checkForceRefresh() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('force') === 'true' || urlParams.get('refresh') === 'true') {
+                console.log('🔄 Force refresh requested');
+                clearAllCaches();
+
+                // 移除URL参数并重新加载
+                const newUrl = window.location.pathname + window.location.hash;
+                window.history.replaceState({}, document.title, newUrl);
+                setTimeout(() => window.location.reload(true), 100);
+                return true;
+            }
+            return false;
+        }
+
+        // 添加缓存破坏器到关键资源
+        function addCacheBuster() {
+            const timestamp = Date.now();
+
+            // 为CSS添加版本参数
+            const links = document.querySelectorAll('link[rel="stylesheet"]');
+            links.forEach(link => {
+                if (!link.href.includes('?v=')) {
+                    link.href += '?v=' + timestamp;
+                }
+            });
+        }
+
+        // 立即执行检查
+        if (!checkForceRefresh()) {
+            const versionUpdated = checkAndUpdateVersion();
+            if (versionUpdated) {
+                addCacheBuster();
+            }
+        }
+
+        // 页面可见性变化时也检查版本
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                checkAndUpdateVersion();
+            }
+        });
+
+    })();
+    </script>
+
+    <!-- Cookie同意管理 -->
+    <script src="/js/cookie-consent.js" defer></script>
+
+    <!-- 联系表单处理器 -->
+    <script src="/js/contact-handler.js" defer></script>
+
+    <!-- 性能优化脚本 - 减少主线程阻塞 -->
+    <script src="/js/performance-optimized.js?v=1.0.1" defer></script>
+
+    <!-- 主脚本 - 使用压缩版本 -->
+    <script src="/js/main.min.js?v=1.0.5" defer></script>
+</body>
+</html>

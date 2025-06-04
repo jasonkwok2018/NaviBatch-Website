@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - NaviBatch</title>
+    <meta name="description" content="Support NaviBatch - Obtenez de l'aide pour la planification d'itinéraires, la navigation et l'optimisation des livraisons.">
+    <link rel="stylesheet" href="css/combined.min.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        .support-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            color: #1e293b;
+        }
+
+        .support-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 163, 255, 0.05) 0%, rgba(96, 165, 250, 0.05) 100%);
+            z-index: 1;
+        }
+
+        .support-header > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .support-header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #00A3FF, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .support-header p {
+            color: #64748b;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .support-section {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .support-section:hover {
+            box-shadow: 0 8px 25px rgba(0, 163, 255, 0.1);
+            border-color: #00A3FF;
+        }
+
+        .support-section h2 {
+            color: #00A3FF;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .support-section h3 {
+            color: #1e40af;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .support-section p {
+            margin-bottom: 20px;
+            color: #334155;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .support-section ul, .support-section ol {
+            margin-bottom: 25px;
+            padding-left: 25px;
+        }
+
+        .support-section li {
+            margin-bottom: 12px;
+            color: #334155;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-method {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-method::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 163, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-method:hover::before {
+            left: 100%;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 163, 255, 0.2);
+            border-color: #00A3FF;
+        }
+
+        .contact-method i {
+            font-size: 2rem;
+            color: #00A3FF;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .contact-method h3 {
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .contact-method p {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .contact-method a {
+            color: #00A3FF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border: 2px solid #00A3FF;
+            border-radius: 8px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method a:hover {
+            background: #00A3FF;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #00A3FF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: rgba(0, 163, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: #00A3FF;
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .language-switcher {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .language-switcher a {
+            color: #00A3FF;
+            text-decoration: none;
+            margin: 5px 10px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .language-switcher a:hover {
+            background: rgba(0, 163, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .language-switcher .current {
+            color: #1e293b;
+            font-weight: 700;
+            background: #00A3FF;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 5px 10px;
+            display: inline-block;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 25px 0;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item:hover {
+            background: rgba(0, 163, 255, 0.02);
+            border-radius: 10px;
+            padding: 25px 20px;
+            margin: 0 -20px;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-question::before {
+            content: '❓';
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            padding-left: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .support-container {
+                padding: 100px 15px 40px;
+            }
+
+            .support-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .language-switcher a, .language-switcher .current {
+                margin: 3px 5px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="support-container">
+        <a href="#" class="back-link" onclick="window.location.href = window.location.origin + '/'; return false;">← Retour à NaviBatch</a>
+
+        <div class="language-switcher">
+            <a href="/support.html">English</a>
+            <a href="/support-zh.html">中文</a>
+            <a href="/support-ja.html">日本語</a>
+            <span class="current">Français</span>
+            <a href="/support-de.html">Deutsch</a>
+            <a href="/support-es.html">Español</a>
+            <a href="/support-it.html">Italiano</a>
+            <a href="/support-ar.html">العربية</a>
+            <a href="/support-ko.html">한국어</a>
+            <a href="/support-pt.html">Português</a>
+            <a href="/support-ru.html">Русский</a>
+            <a href="/support-nl.html">Nederlands</a>
+        </div>
+
+        <div class="support-header">
+            <h1>Support NaviBatch</h1>
+            <p>Obtenez de l'aide pour la planification d'itinéraires, la navigation et l'optimisation des livraisons</p>
+        </div>
+
+        <div class="support-section">
+            <h2>📞 Contacter le Support</h2>
+            <p>Notre équipe de support est là pour vous aider avec toutes questions ou problèmes que vous pourriez avoir avec NaviBatch.</p>
+
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Support Général</h3>
+                    <p>Pour les questions générales et les demandes</p>
+                    <a href="mailto:supports@navibatch.com">supports@navibatch.com</a>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-bug"></i>
+                    <h3>Problèmes Techniques</h3>
+                    <p>Signaler des bugs et des problèmes techniques</p>
+                    <a href="mailto:supports@navibatch.com">supports@navibatch.com</a>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Demandes de Fonctionnalités</h3>
+                    <p>Suggérer de nouvelles fonctionnalités et améliorations</p>
+                    <a href="mailto:info@navibatch.com">info@navibatch.com</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-section">
+            <h2>❓ Questions Fréquemment Posées</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Comment optimiser mes itinéraires de livraison ?</div>
+                <div class="faq-answer">Ajoutez simplement vos adresses de livraison à NaviBatch, et notre algorithme intelligent calculera automatiquement l'itinéraire le plus efficace pour vous faire économiser du temps et du carburant.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Puis-je importer des adresses depuis un fichier ?</div>
+                <div class="faq-answer">Oui ! NaviBatch prend en charge l'importation d'adresses depuis des fichiers CSV, des feuilles de calcul Excel et des fichiers texte. Vous pouvez également coller plusieurs adresses à la fois.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Comment fonctionne la fonctionnalité de navigation par lots ?</div>
+                <div class="faq-answer">Notre technologie de navigation par lots en attente de brevet vous permet de naviguer vers plusieurs adresses en un seul clic, en basculant automatiquement entre les destinations au fur et à mesure que vous terminez chaque livraison.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Mes données sont-elles sécurisées ?</div>
+                <div class="faq-answer">Absolument. Nous utilisons un chiffrement standard de l'industrie et des mesures de sécurité pour protéger vos données. Vos informations d'itinéraires et de livraisons sont stockées en sécurité et ne sont jamais partagées avec des tiers.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Puis-je utiliser NaviBatch hors ligne ?</div>
+                <div class="faq-answer">NaviBatch nécessite une connexion internet pour l'optimisation d'itinéraires et la navigation en temps réel. Cependant, une fois votre itinéraire optimisé, vous pouvez utiliser Apple Maps pour la navigation hors ligne.</div>
+            </div>
+        </div>
+
+        <div class="support-section">
+            <h2>🚀 Commencer</h2>
+            <h3>Guide de Démarrage Rapide</h3>
+            <ol>
+                <li><strong>Télécharger</strong> NaviBatch depuis l'App Store</li>
+                <li><strong>Ajouter des Adresses</strong> en tapant, collant ou important depuis des fichiers</li>
+                <li><strong>Optimiser l'Itinéraire</strong> avec notre algorithme intelligent</li>
+                <li><strong>Commencer la Navigation</strong> avec la navigation par lots en un clic</li>
+                <li><strong>Suivre les Progrès</strong> et capturer des photos de preuve de livraison</li>
+            </ol>
+
+            <h3>Fonctionnalités Pro</h3>
+            <ul>
+                <li>Adresses illimitées (version gratuite limitée à 20)</li>
+                <li>Navigation par lots en un clic (brevet en attente)</li>
+                <li>Recherche avancée de colis</li>
+                <li>Support client prioritaire</li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <h2>📱 Configuration Requise</h2>
+            <ul>
+                <li>iOS 16.0 ou plus récent</li>
+                <li>iPhone (optimisé pour la livraison professionnelle)</li>
+                <li>Connexion internet pour l'optimisation d'itinéraires</li>
+                <li>Permission des services de localisation pour une navigation précise</li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <h2>🔗 Liens Utiles</h2>
+            <ul>
+                <li><a href="/privacy-fr.html">Politique de Confidentialité</a></li>
+                <li><a href="/terms.html">Conditions de Service</a></li>
+                <li><a href="https://apps.apple.com/app/id6746371287">Télécharger depuis l'App Store</a></li>
+                <li><a href="/">Page d'Accueil NaviBatch</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

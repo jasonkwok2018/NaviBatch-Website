@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ondersteuning - NaviBatch</title>
+    <meta name="description" content="NaviBatch ondersteuning - Krijg hulp bij routeplanning, navigatie en bezorgoptimalisatie.">
+    <link rel="stylesheet" href="css/combined.min.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .support-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .support-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .support-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00A3FF, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .support-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .support-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #00A3FF;
+        }
+
+        .support-section h2 {
+            color: #00A3FF;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .support-section h3 {
+            color: #1e40af;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .support-section p {
+            margin-bottom: 15px;
+            color: #334155;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .support-section ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .support-section li {
+            margin-bottom: 10px;
+            color: #334155;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-method {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            box-shadow: 0 4px 12px rgba(0, 163, 255, 0.15);
+            border-color: #00A3FF;
+        }
+
+        .contact-method i {
+            font-size: 1.5rem;
+            color: #00A3FF;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .contact-method h3 {
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .contact-method p {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .contact-method a {
+            color: #00A3FF;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .contact-method a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #00A3FF;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .language-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .language-switcher a {
+            color: #00A3FF;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+
+        .language-switcher a:hover {
+            text-decoration: underline;
+        }
+
+        .language-switcher .current {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            color: #64748b;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="support-container">
+        <a href="#" class="back-link" onclick="window.location.href = window.location.origin + '/'; return false;">← Terug naar NaviBatch</a>
+
+        <div class="language-switcher">
+            <a href="/support.html">English</a>
+            <a href="/support-zh.html">中文</a>
+            <a href="/support-ja.html">日本語</a>
+            <a href="/support-fr.html">Français</a>
+            <a href="/support-de.html">Deutsch</a>
+            <a href="/support-es.html">Español</a>
+            <a href="/support-it.html">Italiano</a>
+            <a href="/support-ar.html">العربية</a>
+            <a href="/support-ko.html">한국어</a>
+            <a href="/support-pt.html">Português</a>
+            <a href="/support-ru.html">Русский</a>
+            <span class="current">Nederlands</span>
+        </div>
+
+        <div class="support-header">
+            <h1>NaviBatch Ondersteuning</h1>
+            <p>Krijg hulp bij routeplanning, navigatie en bezorgoptimalisatie</p>
+        </div>
+
+        <div class="support-section">
+            <h2>📞 Contact Ondersteuning</h2>
+            <p>Ons ondersteuningsteam is er om je te helpen met vragen of problemen die je mogelijk hebt met NaviBatch.</p>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Algemene Ondersteuning</h3>
+                    <p>Voor algemene vragen en verzoeken</p>
+                    <a href="mailto:supports@navibatch.com">supports@navibatch.com</a>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-bug"></i>
+                    <h3>Technische Problemen</h3>
+                    <p>Rapporteer bugs en technische problemen</p>
+                    <a href="mailto:supports@navibatch.com">supports@navibatch.com</a>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Functieverzoeken</h3>
+                    <p>Stel nieuwe functies en verbeteringen voor</p>
+                    <a href="mailto:info@navibatch.com">info@navibatch.com</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-section">
+            <h2>❓ Veelgestelde Vragen</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">How do I optimize my delivery routes?</div>
+                <div class="faq-answer">Simply add your delivery addresses to NaviBatch, and our intelligent algorithm will automatically calculate the most efficient route to save you time and fuel.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I import addresses from a file?</div>
+                <div class="faq-answer">Yes! NaviBatch supports importing addresses from CSV files, Excel spreadsheets, and text files. You can also paste multiple addresses at once.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">How does the batch navigation feature work?</div>
+                <div class="faq-answer">Our patent-pending batch navigation technology allows you to navigate to multiple addresses with just one click, automatically switching between destinations as you complete each delivery.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Is my data secure?</div>
+                <div class="faq-answer">Absolutely. We use industry-standard encryption and security measures to protect your data. Your routes and delivery information are stored securely and never shared with third parties.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I use NaviBatch offline?</div>
+                <div class="faq-answer">NaviBatch requires an internet connection for route optimization and real-time navigation. However, once your route is optimized, you can use Apple Maps for offline navigation.</div>
+            </div>
+        </div>
+
+        <div class="support-section">
+            <h2>🚀 Getting Started</h2>
+            <h3>Quick Start Guide</h3>
+            <ol>
+                <li><strong>Download</strong> NaviBatch from the App Store</li>
+                <li><strong>Add Addresses</strong> by typing, pasting, or importing from files</li>
+                <li><strong>Optimize Route</strong> with our intelligent algorithm</li>
+                <li><strong>Start Navigation</strong> with one-click batch navigation</li>
+                <li><strong>Track Progress</strong> and capture delivery proof photos</li>
+            </ol>
+            
+            <h3>Pro Features</h3>
+            <ul>
+                <li>Unlimited addresses (Free version limited to 20)</li>
+                <li>One-click batch navigation (Patent pending)</li>
+                <li>Advanced package finder</li>
+                <li>Priority customer support</li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <h2>📱 System Requirements</h2>
+            <ul>
+                <li>iOS 16.0 or later</li>
+                <li>iPhone (optimized for professional delivery)</li>
+                <li>Internet connection for route optimization</li>
+                <li>Location services permission for accurate navigation</li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <h2>🔗 Useful Links</h2>
+            <ul>
+                <li><a href="/privacy-nl.html">Privacybeleid</a></li>
+                <li><a href="/terms.html">Terms of Service</a></li>
+                <li><a href="https://apps.apple.com/app/id6746371287">Download from App Store</a></li>
+                <li><a href="/">NaviBatch Homepage</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
