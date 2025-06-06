@@ -1267,20 +1267,56 @@
     }
 
     .card-1 {
-      top: 20%;
+      top: 15%;
       left: -20px;
       animation: floatOptimized 3s ease-in-out infinite;
+      z-index: 1000 !important;
     }
 
     .card-2 {
-      bottom: 15%;
-      right: -20px;
+      bottom: 20%;
+      right: -25px;
       animation: floatOptimized 3s ease-in-out 0.5s infinite;
+      z-index: 1000 !important;
     }
 
     @keyframes floatOptimized {
       0%, 100% { transform: translateY(0) translateZ(0); }
       50% { transform: translateY(-10px) translateZ(0); }
+    }
+
+    /* 桌面端浮动卡片优化 */
+    @media (min-width: 1025px) {
+      .card-1 {
+        top: 18% !important;
+        left: -30px !important;
+        font-size: 0.9rem !important;
+        padding: 12px 18px !important;
+      }
+
+      .card-2 {
+        bottom: 25% !important;
+        right: -35px !important;
+        font-size: 0.9rem !important;
+        padding: 12px 18px !important;
+      }
+    }
+
+    /* 平板端浮动卡片优化 */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .card-1 {
+        top: 15% !important;
+        left: -25px !important;
+        font-size: 0.8rem !important;
+        padding: 10px 15px !important;
+      }
+
+      .card-2 {
+        bottom: 20% !important;
+        right: -30px !important;
+        font-size: 0.8rem !important;
+        padding: 10px 15px !important;
+      }
     }
 
     /* 响应式设计 */
@@ -1346,11 +1382,210 @@
 
       /* 移动端优化浮动卡片，避免CLS */
       .floating-card {
-        opacity: 0 !important;
-        visibility: hidden !important;
+        opacity: 1 !important;
+        visibility: visible !important;
         transform: translateY(0) translateZ(0) !important;
-        animation: none !important;
+        animation: floatOptimized 3s ease-in-out infinite !important;
         contain: layout style paint !important;
+        /* 调整移动端位置 */
+        font-size: 0.75rem !important;
+        padding: 8px 12px !important;
+      }
+
+      /* 移动端浮动卡片位置调整 */
+      .card-1 {
+        top: 10% !important;
+        left: -15px !important;
+      }
+
+      .card-2 {
+        bottom: 15% !important;
+        right: -20px !important;
+      }
+    }
+
+    /* 超小屏幕优化 */
+    @media (max-width: 480px) {
+      .floating-card {
+        font-size: 0.7rem !important;
+        padding: 6px 10px !important;
+        border-radius: 25px !important;
+      }
+
+      .card-1 {
+        top: 8% !important;
+        left: -10px !important;
+      }
+
+      .card-2 {
+        bottom: 12% !important;
+        right: -15px !important;
+      }
+    }
+
+    /* 极小屏幕优化 */
+    @media (max-width: 375px) {
+      .card-1 {
+        left: -5px !important;
+      }
+
+      .card-2 {
+        right: -10px !important;
+      }
+    }
+
+    /* 视频部分样式 */
+    .video-section {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 70%, rgba(0, 163, 255, 0.1) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    .video-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .video-container {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .video-wrapper {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      background: #000;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 20px;
+    }
+
+    .video-overlay:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .play-button-large {
+      width: 100px;
+      height: 100px;
+      background: rgba(0, 163, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 163, 255, 0.3);
+    }
+
+    .play-button-large:hover {
+      transform: scale(1.1);
+      background: rgba(0, 163, 255, 1);
+      box-shadow: 0 15px 40px rgba(0, 163, 255, 0.4);
+    }
+
+    .video-title {
+      text-align: center;
+      color: white;
+    }
+
+    .video-title h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .video-title p {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    .video-features {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .video-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #60a5fa;
+      font-weight: 500;
+    }
+
+    .video-feature i {
+      font-size: 1.2rem;
+      color: #00a3ff;
+    }
+
+    /* 移动端视频优化 */
+    @media (max-width: 768px) {
+      .video-section {
+        padding: 60px 0;
+      }
+
+      .video-container {
+        padding: 0 15px;
+      }
+
+      .play-button-large {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+      }
+
+      .video-title h3 {
+        font-size: 1.3rem;
+      }
+
+      .video-features {
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .video-feature {
+        font-size: 0.9rem;
       }
     }
 
@@ -2204,7 +2439,7 @@
                         <a href="https://apps.apple.com/app/id6746371287" class="btn btn-large btn-primary" target="_blank" rel="noopener">
                             <i class="fab fa-apple"></i> Download on App Store
                         </a>
-                        <a href="#how-it-works" class="btn btn-large btn-outline">
+                        <a href="#demo-video" class="btn btn-large btn-outline">
                             <i class="fas fa-play-circle"></i> Watch Demo
                         </a>
                     </div>
@@ -2350,7 +2585,7 @@
                     </div>
                     <div class="floating-card card-2" style="background-color: white !important; color: #333 !important; opacity: 1 !important; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important; z-index: 1000 !important;">
                         <i class="fas fa-bolt" style="color: #00a3ff;" aria-hidden="true"></i>
-                        <span>60% Time Saved</span>
+                        <span>60x Faster</span>
                     </div>
                 </div>
             </div>
@@ -2822,6 +3057,55 @@
         </div>
     </section>
 
+    <!-- Demo Video Section -->
+    <section id="demo-video" class="video-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>See NaviBatch in Action</h2>
+                <p>Watch how NaviBatch revolutionizes route planning for delivery professionals</p>
+            </div>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video
+                        id="demo-video-player"
+                        controls
+                        preload="metadata"
+                        poster="/images/hero-screenshot-hq.webp"
+                        width="100%"
+                        height="auto"
+                        playsinline
+                        aria-label="NaviBatch Demo Video">
+                        <source src="/videos/navibatch_video.mp4" type="video/mp4">
+                        <p>Your browser doesn't support HTML5 video. <a href="/videos/navibatch_video.mp4">Download the video</a> instead.</p>
+                    </video>
+                    <div class="video-overlay" id="video-overlay">
+                        <div class="play-button-large">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="video-title">
+                            <h3>NaviBatch Demo</h3>
+                            <p>See how to optimize 60+ stops in seconds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-features">
+                <div class="video-feature">
+                    <i class="fas fa-clock"></i>
+                    <span>60x Faster Route Planning</span>
+                </div>
+                <div class="video-feature">
+                    <i class="fas fa-route"></i>
+                    <span>One-Click Navigation</span>
+                </div>
+                <div class="video-feature">
+                    <i class="fas fa-camera"></i>
+                    <span>Proof of Delivery</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="photo-verification" class="solution-section">
         <div class="container">
             <div class="section-header">
@@ -3222,6 +3506,39 @@
             script.src = '/js/console-cleaner.js';
             document.head.appendChild(script);
         }
+    </script>
+
+    <!-- 视频播放器脚本 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoOverlay = document.getElementById('video-overlay');
+        const videoPlayer = document.getElementById('demo-video-player');
+
+        if (videoOverlay && videoPlayer) {
+            // 点击覆盖层播放视频
+            videoOverlay.addEventListener('click', function() {
+                videoPlayer.play();
+                videoOverlay.style.display = 'none';
+            });
+
+            // 视频暂停时显示覆盖层
+            videoPlayer.addEventListener('pause', function() {
+                if (videoPlayer.currentTime < videoPlayer.duration) {
+                    videoOverlay.style.display = 'flex';
+                }
+            });
+
+            // 视频结束时显示覆盖层
+            videoPlayer.addEventListener('ended', function() {
+                videoOverlay.style.display = 'flex';
+            });
+
+            // 视频开始播放时隐藏覆盖层
+            videoPlayer.addEventListener('play', function() {
+                videoOverlay.style.display = 'none';
+            });
+        }
+    });
     </script>
 
     <!-- 延迟加载非关键CSS -->

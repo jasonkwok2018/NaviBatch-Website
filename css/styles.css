@@ -300,7 +300,7 @@ body::after {
     background-image: linear-gradient(135deg, var(--darker-bg), var(--dark-bg)); /* 渐变作为增强 */
     color: var(--light-text);
     padding: 5rem 0;
-    overflow: hidden;
+    overflow-x: hidden; /* 只隐藏水平溢出，保留垂直空间给浮动卡片 */
     position: relative;
     will-change: transform; /* 加速GPU渲染 */
     contain: layout paint; /* 优化渲染性能 */
@@ -425,7 +425,7 @@ body::after {
 
 .card-1 {
     top: 25%;
-    left: -25px;
+    left: 10px;
     animation: float 3s ease-in-out infinite;
     background-color: white !important;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25) !important;
@@ -433,10 +433,11 @@ body::after {
 
 .card-2 {
     bottom: 25%;
-    right: -25px;
+    right: 30px;
     animation: float 3s ease-in-out 0.5s infinite;
     background-color: white !important;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25) !important;
+    min-width: 140px; /* 确保有足够宽度显示完整文字 */
 }
 
 /* 为浮动卡片添加图标样式 */
@@ -1714,7 +1715,7 @@ footer {
 
     .card-2 {
         bottom: 20%;
-        right: -15px;
+        right: 5px;
     }
 }
 
@@ -2345,7 +2346,7 @@ footer {
     }
 
     .card-1 {
-        left: -15px;
+        left: 5px;
     }
 
     .card-2 {

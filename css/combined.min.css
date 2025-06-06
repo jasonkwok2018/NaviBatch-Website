@@ -239,7 +239,7 @@ header .container {
     background-image: linear-gradient(135deg, var(--darker-bg), var(--dark-bg));
     color: var(--light-text);
     padding: 5rem 0;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
     will-change: transform;
     contain: layout paint;
@@ -370,7 +370,7 @@ header .container {
 
 .card-1 {
     top: 25%;
-    left: -25px;
+    left: 10px;
     animation: float 3s ease-in-out infinite;
     background-color: white !important;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25) !important;
@@ -378,7 +378,7 @@ header .container {
 
 .card-2 {
     bottom: 25%;
-    right: -25px;
+    right: 10px;
     animation: float 3s ease-in-out 0.5s infinite;
     background-color: white !important;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25) !important;

@@ -10,6 +10,8 @@
     position: relative;
     margin: 0 auto;
     z-index: 2;
+    /* 确保有足够空间容纳浮动卡片 */
+    padding: 0 30px; /* 左右留出空间给浮动卡片 */
 }
 
 .phone-mockup {
